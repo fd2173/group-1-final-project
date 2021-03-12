@@ -98,13 +98,14 @@ public final class Money implements Copiable, Comparable<Money>, Serializable {
         long result = value - oValue;
         return new Money(result / 100, (byte) (result % 100));
     }
-
+    
     public Money divide(int divisor) {
         long value = dollars * 100;
         value += cents;
         long result = value / divisor;
         return new Money(result/ 100, (byte) (result % 100));
     }
+
     /**
      * Provides a string representation of the current Money object, in the form
      * $mm.mm. Negative values have a minus sign before the dollar sign. Zero

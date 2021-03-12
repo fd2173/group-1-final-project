@@ -1,12 +1,12 @@
-package dai;
-
+package numberlist.objectlist;
+ 
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
+ 
 /**
  *
  * @author Name added later, pastebin public
@@ -14,21 +14,21 @@ import static org.junit.Assert.*;
  * @author Name
  */
 public class TemperatureTest {
-
+ 
     Temperature t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12;
-
+ 
     public TemperatureTest() {
     }
-
+ 
     @BeforeClass
     public static void setUpClass() {
-
+ 
     }
-
+ 
     @AfterClass
     public static void tearDownClass() {
     }
-
+ 
     @Before
     public void setUp() {
         t1 = new Temperature(0.0, 'F');
@@ -40,7 +40,7 @@ public class TemperatureTest {
         t7 = new Temperature(1.0, 'K');
         t8 = new Temperature(99.99, 'F');
     }
-
+ 
     /**
      * Test of getValue method, of class Temperature.
      */
@@ -48,23 +48,23 @@ public class TemperatureTest {
     public void testGetValueZero() {
         assertTrue(t1.getValue() == 0.0);
     }
-
+ 
     @Test
     public void testGetValueOne() {
         assertTrue(t2.getValue() == 1.0);
     }
-
+ 
     @Test
     public void testGetValueHigh() {
         assertTrue(t4.getValue() == 400.00);
     }
-
+ 
     //Remember we don't want negative values, this would throw exception purposely. 
     @Test
     public void testGetValueNegative() {
         assertTrue(t3.getValue() == -1.0);
     }
-
+ 
     /**
      * Test of getUnit method, of class Temperature.
      */
@@ -72,17 +72,17 @@ public class TemperatureTest {
     public void testGetUnitFahrenheit() {
         assertTrue(t1.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testGetUnitKelvin() {
         assertTrue(t7.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testGetUnitCelsius() {
         assertTrue(t6.getUnit() == 'C');
     }
-
+ 
     /**
      * Test of add method, of class Temperature.
      */
@@ -93,7 +93,7 @@ public class TemperatureTest {
         assertTrue(total.getValue() == 2.0);
         assertTrue(total.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testAddKelvin() {
         t1 = new Temperature(1.0, 'K');
@@ -101,7 +101,7 @@ public class TemperatureTest {
         assertTrue(total.getValue() == 2.0);
         assertTrue(total.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testAddCelsius() {
         t1 = new Temperature(1.0, 'C');
@@ -109,7 +109,7 @@ public class TemperatureTest {
         assertTrue(total.getValue() == 2.0);
         assertTrue(total.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testAddZeroFandF() {
         t1 = new Temperature(0.0, 'F');
@@ -117,7 +117,7 @@ public class TemperatureTest {
         assertTrue(total.getValue() == 0.0);
         assertTrue(total.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testAddZeroCandC() {
         t1 = new Temperature(0.0, 'C');
@@ -125,7 +125,7 @@ public class TemperatureTest {
         assertTrue(total.getValue() == 0.0);
         assertTrue(total.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testAddZeroKandK() {
         t1 = new Temperature(0.0, 'K');
@@ -133,7 +133,7 @@ public class TemperatureTest {
         assertTrue(total.getValue() == 0.0);
         assertTrue(total.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testAddZeroFandC() {
         t1 = new Temperature(0.0, 'F');
@@ -142,7 +142,7 @@ public class TemperatureTest {
         assertTrue(total.getValue() == 32.0);
         assertTrue(total.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testAddZeroFandK() {
         t1 = new Temperature(0.0, 'F');
@@ -151,7 +151,7 @@ public class TemperatureTest {
         assertTrue(total.getValue() == -459.67);
         assertTrue(total.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testAddZeroCandF() {
         t1 = new Temperature(0.0, 'C');
@@ -161,7 +161,7 @@ public class TemperatureTest {
         assertEquals(-17.7778, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testAddZeroCandK() {
         t1 = new Temperature(0.0, 'C');
@@ -170,7 +170,7 @@ public class TemperatureTest {
         assertEquals(-273.15, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testAddZeroKandF() {
         t1 = new Temperature(0.0, 'K');
@@ -179,7 +179,7 @@ public class TemperatureTest {
         assertEquals(255.372, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testAddZeroKandC() {
         t1 = new Temperature(0.0, 'K');
@@ -188,7 +188,7 @@ public class TemperatureTest {
         assertEquals(273.15, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testAddNonzeroFandC() {
         t1 = new Temperature(100.0, 'F');
@@ -197,7 +197,7 @@ public class TemperatureTest {
         assertEquals(133.8, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testAddNonzeroFandK() {
         t1 = new Temperature(100.0, 'F');
@@ -206,7 +206,7 @@ public class TemperatureTest {
         assertTrue(total.getValue() == -359.67);
         assertTrue(total.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testAddNonzeroCandF() {
         t1 = new Temperature(100.0, 'C');
@@ -215,7 +215,7 @@ public class TemperatureTest {
         assertEquals(82.778, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testAddNonzeroCandK() {
         t1 = new Temperature(100.0, 'C');
@@ -224,7 +224,7 @@ public class TemperatureTest {
         assertEquals(-172.15, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testAddNonzeroKandF() {
         t1 = new Temperature(100.0, 'K');
@@ -233,7 +233,7 @@ public class TemperatureTest {
         assertEquals(374.15, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testAddNonzeroKandC() {
         t1 = new Temperature(100.0, 'K');
@@ -242,7 +242,7 @@ public class TemperatureTest {
         assertEquals(355.928, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'K');
     }
-
+ 
     /**
      * Test of subtract method, of class Temperature.
      */
@@ -261,7 +261,7 @@ public class TemperatureTest {
         assertTrue(totalC.getUnit() == 'C');
         assertTrue(totalK.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testSubtractZero() {
         t1 = new Temperature(0.0, 'F');
@@ -277,7 +277,7 @@ public class TemperatureTest {
         assertTrue(totalC.getUnit() == 'C');
         assertTrue(totalK.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testSubtractZeroF() {
         t1 = new Temperature(0.0, 'F');
@@ -290,7 +290,7 @@ public class TemperatureTest {
         assertTrue(totalF2.getValue() == 459.67);
         assertTrue(totalF2.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testSubtractZeroC() {
         t1 = new Temperature(0.0, 'C');
@@ -303,7 +303,7 @@ public class TemperatureTest {
         assertTrue(totalC1.getUnit() == 'C');
         assertTrue(totalC2.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testSubtractZeroK() {
         t1 = new Temperature(0.0, 'K');
@@ -316,7 +316,7 @@ public class TemperatureTest {
         assertTrue(totalK1.getUnit() == 'K');
         assertTrue(totalK2.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testSubtractNonzeroFandC() {
         t1 = new Temperature(100.0, 'F');
@@ -325,7 +325,7 @@ public class TemperatureTest {
         assertEquals(66.2, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testSubtractNonzeroFandK() {
         t1 = new Temperature(100.0, 'F');
@@ -334,7 +334,7 @@ public class TemperatureTest {
         assertEquals(559.67, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testSubtractNonzeroCandF() {
         t1 = new Temperature(100.0, 'C');
@@ -343,7 +343,7 @@ public class TemperatureTest {
         assertEquals(117.2222, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testSubtractNonzeroCandK() {
         t1 = new Temperature(100.0, 'C');
@@ -352,7 +352,7 @@ public class TemperatureTest {
         assertEquals(372.15, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testSubtractNonzeroKandF() {
         t1 = new Temperature(100.0, 'K');
@@ -361,7 +361,7 @@ public class TemperatureTest {
         assertEquals(-174.15, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testSubtractNonzeroKandC() {
         t1 = new Temperature(100.0, 'K');
@@ -370,7 +370,7 @@ public class TemperatureTest {
         assertEquals(-155.928, total.getValue(), 0.1);
         assertTrue(total.getUnit() == 'K');
     }
-
+ 
     /**
      * Test of convertTo method, of class Temperature.
      */
@@ -381,7 +381,7 @@ public class TemperatureTest {
         assertEquals(-459.67, temp.getValue(), 0.1);
         assertTrue(temp.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testConvertZeroKtoC() {
         t1 = new Temperature(0.0, 'K');
@@ -389,7 +389,7 @@ public class TemperatureTest {
         assertEquals(-273.15, temp.getValue(), 0.1);
         assertTrue(temp.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testConvertZeroCtoF() {
         t1 = new Temperature(0.0, 'C');
@@ -397,7 +397,7 @@ public class TemperatureTest {
         assertEquals(32, temp.getValue(), 0.1);
         assertTrue(temp.getUnit() == 'F');
     }
-
+ 
     @Test
     public void testConvertZeroCtoK() {
         t1 = new Temperature(0.0, 'C');
@@ -405,7 +405,7 @@ public class TemperatureTest {
         assertEquals(273.15, temp.getValue(), 0.1);
         assertTrue(temp.getUnit() == 'K');
     }
-
+ 
     @Test
     public void testConvertZeroFtoC() {
         t1 = new Temperature(0.0, 'F');
@@ -413,7 +413,7 @@ public class TemperatureTest {
         assertEquals(-17.7778, temp.getValue(), 0.1);
         assertTrue(temp.getUnit() == 'C');
     }
-
+ 
     @Test
     public void testConvertZeroFtoK() {
         t1 = new Temperature(0.0, 'F');
@@ -421,7 +421,7 @@ public class TemperatureTest {
         assertEquals(255.372, temp.getValue(), 0.1);
         assertTrue(temp.getUnit() == 'K');
     }
-
+ 
     /**
      * Test of convertCelsiusAndFahrenheit method, of class Temperature.
      */
@@ -432,7 +432,7 @@ public class TemperatureTest {
         assertEquals(-17.7778, newTemp.getValue(), 0.1);
         assertTrue(newTemp.getUnit() == 'C');
     }
-
+ 
     /**
      * Test of convertKelvinAndFahrenheit method, of class Temperature.
      */
@@ -440,7 +440,7 @@ public class TemperatureTest {
     public void testConvertKelvinAndFahrenheit() {
         //Tested within above tests.
     }
-
+ 
     /**
      * Test of convertKelvinAndCelsius method, of class Temperature.
      */
@@ -448,7 +448,7 @@ public class TemperatureTest {
     public void testConvertKelvinAndCelsius() {
         //Tested within above tests.
     }
-
+ 
     /**
      * Test of equals method and hash codes, of class Temperature.
      */
@@ -457,7 +457,7 @@ public class TemperatureTest {
         assertEquals(true, t2.equals(t5));
         Assert.assertTrue(t2.hashCode() == t5.hashCode());
     }
-
+ 
 //    @Test
 //        public void testReflexivityCandF() {
 //        Temperature t00 = new Temperature(1.0, 'C');
@@ -471,7 +471,7 @@ public class TemperatureTest {
         t1 = new Temperature(0.0, 'F');
         assertEquals(false, t1.equals(null));
     }
-
+ 
     /**
      * Test of toString method, of class Temperature.
      */
@@ -481,21 +481,21 @@ public class TemperatureTest {
         assertEquals((new Temperature(100.50, 'K')).toString(), "101 K");
         assertEquals((new Temperature(0.0, 'K')).toString(), "0 K");
     }
-
+ 
     @Test
     public void testToStringCelsius() {
         assertEquals(t6.toString(), "1" + "\u00B0" + " C");
         assertEquals((new Temperature(100.50, 'C')).toString(), "101" + "\u00B0" + " C");
         assertEquals((new Temperature(999.50, 'C')).toString(), "1000" + "\u00B0" + " C");
     }
-
+ 
     @Test
     public void testToStringFahrenheit() {
         assertEquals(t8.toString(), "100" + "\u00B0" + " F");
         assertEquals((new Temperature(100.50, 'F')).toString(), "101" + "\u00B0" + " F");
         assertEquals((new Temperature(999.50, 'F')).toString(), "1000" + "\u00B0" + " F");
     }
-
+ 
     /**
      * Test of copy method, of class Temperature.
      */
@@ -504,14 +504,14 @@ public class TemperatureTest {
         t1 = t2.copy();
         Assert.assertTrue(t1.getValue() == t2.getValue() && t1.getUnit() == t2.getUnit());
     }
-
+ 
     @Test
     public void testCopyMemoryAddress() {
         t1 = t2.copy();
         Assert.assertTrue(t1.equals(t2));
         Assert.assertFalse(t1 == t2);
     }
-
+ 
     /**
      * Test of compareTo method, of class Temperature.
      */
@@ -527,7 +527,7 @@ public class TemperatureTest {
         assertTrue(lessThan < 0);
         assertTrue(greaterThan > 0);
     }
-
+ 
     @Test
     public void testCompareToC() {
         t1 = new Temperature(0, 'C');
@@ -540,7 +540,7 @@ public class TemperatureTest {
         assertTrue(lessThan < 0);
         assertTrue(greaterThan > 0);
     }
-
+ 
     @Test
     public void testCompareToK() {
         t1 = new Temperature(0, 'K');
@@ -553,7 +553,7 @@ public class TemperatureTest {
         assertTrue(lessThan < 0);
         assertTrue(greaterThan > 0);
     }
-
+ 
     @Test
     public void testCompareCandOthers() {
         t1 = new Temperature(0, 'C');
@@ -564,7 +564,7 @@ public class TemperatureTest {
         assertTrue(greaterOne > 0);
         assertTrue(greaterTwo > 0);
     }
-
+ 
     @Test
     public void testCompareKandOthers() {
         t1 = new Temperature(0, 'K');
@@ -575,7 +575,7 @@ public class TemperatureTest {
         assertTrue(lessThanOne < 0);
         assertTrue(lessThanTwo < 0);
     }
-
+ 
     @Test
     public void testCompareFandOthers() {
         t1 = new Temperature(0, 'F');
@@ -586,5 +586,5 @@ public class TemperatureTest {
         assertTrue(lessThan < 0);
         assertTrue(greaterThan > 0);
     }
-
+ 
 }

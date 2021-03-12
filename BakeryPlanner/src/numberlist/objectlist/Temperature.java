@@ -1,7 +1,6 @@
-package dai;
+package numberlist.objectlist;
 
 import java.io.Serializable;
-import numberlist.objectlist.Copiable;
 
 /**
  *
