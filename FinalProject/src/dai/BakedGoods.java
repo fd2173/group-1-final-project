@@ -176,7 +176,7 @@ public class BakedGoods {
         return total;
     }
 
-    public Money calcAveCost() {
+    public Money AverageCost() {
         Money averageCost = this.totalCost().divide(costs.getCount());
         return averageCost;
     }
@@ -193,7 +193,7 @@ public class BakedGoods {
         return total;
     }
 
-    public Temperature calcAveTemp() {
+    public Temperature AverageTemp() {
         Temperature averageTemp = this.totalTemp().divide(temps.getCount());
         return averageTemp; 
     }
