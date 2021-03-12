@@ -65,7 +65,7 @@ public class BakedGoods {
         durations.set(index, duration);
         costs.set(index, cost);
     }
-    
+
     /**
      *
      * @param index
@@ -283,7 +283,7 @@ public class BakedGoods {
      *
      * @return
      */
-    public Money calcAveCost() {
+    public Money averageCost() {
         Money averageCost = this.totalCost().divide(costs.getCount());
         return averageCost;
     }
@@ -310,12 +310,11 @@ public class BakedGoods {
      *
      * @return
      */
-    public Temperature calcAveTemp() {
+    public Temperature averageTemp() {
         Temperature averageTemp = this.totalTemp().divide(temps.getCount());
         return averageTemp;
     }
 
-    
     public int getCount() {
         int count = names.size();
         return count;

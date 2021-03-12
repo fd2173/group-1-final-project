@@ -117,42 +117,39 @@ public class BakedGoodsTest {
      * Test of getTemps method, of class BakedGoods.
      */
     @Test
-    public void testGetTemps() {
-        System.out.println("getTemps");
-        BakedGoods instance = new BakedGoods();
-        NumericArrayList expResult = null;
-        NumericArrayList result = instance.getTemps();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetTemps() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(375, 'F'));
+        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(355, 'F'));
     }
 
     /**
      * Test of getDurations method, of class BakedGoods.
      */
     @Test
-    public void testGetDurations() {
-        System.out.println("getDurations");
-        BakedGoods instance = new BakedGoods();
-        IntegerArrayList expResult = null;
-        IntegerArrayList result = instance.getDurations();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetDurations() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        assertEquals(bakedGoods.getDurations().getValue(0), 50);
+        assertEquals(bakedGoods.getDurations().getValue(1), 12);
+        assertEquals(bakedGoods.getDurations().getValue(2), 30);
     }
 
     /**
      * Test of getCosts method, of class BakedGoods.
      */
     @Test
-    public void testGetCosts() {
-        System.out.println("getCosts");
-        BakedGoods instance = new BakedGoods();
-        NumericArrayList expResult = null;
-        NumericArrayList result = instance.getCosts();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetCosts() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        assertEquals(bakedGoods.getCosts().getValue(0), new Money(12, (byte) 50));
+        assertEquals(bakedGoods.getCosts().getValue(1), new Money(10, (byte) 50));
+        assertEquals(bakedGoods.getCosts().getValue(2), new Money(8, (byte) 50));
     }
 
     /**
@@ -179,48 +176,80 @@ public class BakedGoodsTest {
      * Test of sortByBatches method, of class BakedGoods.
      */
     @Test
-    public void testSortByBatches() {
-        System.out.println("sortByBatches");
-        BakedGoods instance = new BakedGoods();
-        instance.sortByBatches();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testSortByBatches() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        bakedGoods.sortByBatches();
+        assertEquals(bakedGoods.getNames().get(0), "Pie");
+        assertEquals(bakedGoods.getNames().get(1), "Banana Bread");
+        assertEquals(bakedGoods.getNames().get(2), "Muffin");
+        assertEquals(bakedGoods.getDurations().getValue(0), 50);
+        assertEquals(bakedGoods.getDurations().getValue(1), 12);
+        assertEquals(bakedGoods.getDurations().getValue(2), 30);
+        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(375, 'F'));
+        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(355, 'F'));
     }
 
     /**
      * Test of sortByTemps method, of class BakedGoods.
      */
     @Test
-    public void testSortByTemps() {
-        System.out.println("sortByTemps");
-        BakedGoods instance = new BakedGoods();
-        instance.sortByTemps();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testSortByTemps() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        bakedGoods.sortByTemps();
+        assertEquals(bakedGoods.getNames().get(0), "Muffin");
+        assertEquals(bakedGoods.getNames().get(1), "Pie");
+        assertEquals(bakedGoods.getNames().get(2), "Banana Bread");
+        assertEquals(bakedGoods.getDurations().getValue(0), 30);
+        assertEquals(bakedGoods.getDurations().getValue(1), 50);
+        assertEquals(bakedGoods.getDurations().getValue(2), 12);
+        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(375, 'F'));
+        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(420, 'F'));
     }
 
     /**
      * Test of sortByDuration method, of class BakedGoods.
      */
     @Test
-    public void testSortByDuration() {
-        System.out.println("sortByDuration");
-        BakedGoods instance = new BakedGoods();
-        instance.sortByDuration();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testSortByDuration() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        bakedGoods.sortByDuration();
+        assertEquals(bakedGoods.getNames().get(0), "Banana Bread");
+        assertEquals(bakedGoods.getNames().get(1), "Muffin");
+        assertEquals(bakedGoods.getNames().get(2), "Pie");
+        assertEquals(bakedGoods.getDurations().getValue(0), 12);
+        assertEquals(bakedGoods.getDurations().getValue(1), 30);
+        assertEquals(bakedGoods.getDurations().getValue(2), 50);
+        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(375, 'F'));
     }
 
     /**
      * Test of sortByCosts method, of class BakedGoods.
      */
     @Test
-    public void testSortByCosts() {
-        System.out.println("sortByCosts");
-        BakedGoods instance = new BakedGoods();
-        instance.sortByCosts();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testSortByCosts() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        bakedGoods.sortByCosts();
+        assertEquals(bakedGoods.getNames().get(0), "Muffin");
+        assertEquals(bakedGoods.getNames().get(1), "Banana Bread");
+        assertEquals(bakedGoods.getNames().get(2), "Pie");
+        assertEquals(bakedGoods.getDurations().getValue(0), 30);
+        assertEquals(bakedGoods.getDurations().getValue(1), 12);
+        assertEquals(bakedGoods.getDurations().getValue(2), 50);
+        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(375, 'F'));
     }
 
     /**
@@ -272,56 +301,50 @@ public class BakedGoodsTest {
      * Test of totalCost method, of class BakedGoods.
      */
     @Test
-    public void testTotalCost() {
-        System.out.println("totalCost");
-        BakedGoods instance = new BakedGoods();
-        Money expResult = null;
-        Money result = instance.totalCost();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testTotalCost() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        assertEquals(bakedGoods.totalCost(), new Money(31, (byte) 50));
+        bakedGoods.deleteGood(1);
+        assertEquals(bakedGoods.totalCost(), new Money(21, (byte) 0));
     }
 
     /**
      * Test of calcAveCost method, of class BakedGoods.
      */
     @Test
-    public void testCalcAveCost() {
-        System.out.println("calcAveCost");
-        BakedGoods instance = new BakedGoods();
-        Money expResult = null;
-        Money result = instance.calcAveCost();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testAverageCost() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        assertEquals(bakedGoods.averageCost(), new Money(10, (byte) 50));
+        bakedGoods.deleteGood(1);
+        assertEquals(bakedGoods.averageCost(), new Money(10, (byte) 50));
     }
 
     /**
      * Test of totalTemp method, of class BakedGoods.
      */
     @Test
-    public void testTotalTemp() {
-        System.out.println("totalTemp");
-        BakedGoods instance = new BakedGoods();
-        Temperature expResult = null;
-        Temperature result = instance.totalTemp();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testTotalTemp() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        assertEquals(bakedGoods.totalTemp(), new Temperature(1150, 'F'));
+        bakedGoods.deleteGood(1);
+        assertEquals(bakedGoods.totalTemp(), new Temperature(730, 'F'));
     }
 
     /**
      * Test of calcAveTemp method, of class BakedGoods.
      */
     @Test
-    public void testCalcAveTemp() {
-        System.out.println("calcAveTemp");
-        BakedGoods instance = new BakedGoods();
-        Temperature expResult = null;
-        Temperature result = instance.calcAveTemp();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testAverageTemp() {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        bakedGoods.averageTemp();
+        assertSame(bakedGoods.averageTemp(), new Temperature(383, 'F'));
     }
-
 }
