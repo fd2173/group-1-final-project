@@ -81,42 +81,60 @@ public class BakedGoods {
 
     /**
      *
+     * @param index
      * @return
      */
-    public ArrayList<String> getNames() {
-        return names;
+    public String getNames(int index) {
+        return names.get(index);
+    }
+
+    /**
+     *
+     * @param index
+     * @return
+     * @throws numberlist.IndexException
+     */
+    public long getBatches(int index) throws IndexException {
+        return batches.getValue(index);
+    }
+
+    /**
+     *
+     * @param index
+     * @return
+     * @throws numberlist.IndexException
+     */
+    public Copiable getTemps(int index) throws IndexException {
+        return temps.getValue(index);
+    }
+
+    /**
+     *
+     * @param index
+     * @return
+     * @throws numberlist.IndexException
+     */
+    public long getDurations(int index) throws IndexException {
+        return durations.getValue(index);
+    }
+
+    /**
+     *
+     * @param index
+     * @return
+     * @throws numberlist.IndexException
+     */
+    public Copiable getCosts(int index) throws IndexException {
+        return costs.getValue(index);
     }
 
     /**
      *
      * @return
      */
-    public IntegerArrayList getBatches() {
-        return batches;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public NumericArrayList getTemps() {
-        return temps;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public IntegerArrayList getDurations() {
-        return durations;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public NumericArrayList getCosts() {
-        return costs;
+    public int getCount() {
+        int count = names.size();
+        return count;
     }
 
     /**
@@ -315,8 +333,4 @@ public class BakedGoods {
         return averageTemp;
     }
 
-    public int getCount() {
-        int count = names.size();
-        return count;
-    }
 }

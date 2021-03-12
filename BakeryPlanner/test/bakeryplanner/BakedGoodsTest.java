@@ -62,11 +62,11 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
         bakedGoods.updateGood(1, "Cookies", 8, new Temperature(200, 'C'), 15, new Money(10, (byte) 20));
-        assertEquals(bakedGoods.getNames().get(1), "Cookies");
-        assertEquals(bakedGoods.getBatches().getValue(1), 8);
-        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(200, 'C'));
-        assertEquals(bakedGoods.getDurations().getValue(1), 15);
-        assertEquals(bakedGoods.getCosts().getValue(1), new Money(10, (byte) 20));
+        assertEquals(bakedGoods.getNames(1), "Cookies");
+        assertEquals(bakedGoods.getBatches(1), 8);
+        assertEquals(bakedGoods.getTemps(1), new Temperature(200, 'C'));
+        assertEquals(bakedGoods.getDurations(1), 15);
+        assertEquals(bakedGoods.getCosts(1), new Money(10, (byte) 20));
     }
 
     /**
@@ -80,11 +80,11 @@ public class BakedGoodsTest {
         assertEquals(3, bakedGoods.getCount());
         bakedGoods.deleteGood(1);
         assertEquals(2, bakedGoods.getCount());
-        assertEquals(bakedGoods.getNames().get(1), "Muffin");
-        assertEquals(bakedGoods.getBatches().getValue(1), 7);
-        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(355, 'F'));
-        assertEquals(bakedGoods.getDurations().getValue(1), 30);
-        assertEquals(bakedGoods.getCosts().getValue(1), new Money(8, (byte) 50));
+        assertEquals(bakedGoods.getNames(1), "Muffin");
+        assertEquals(bakedGoods.getBatches(1), 7);
+        assertEquals(bakedGoods.getTemps(1), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getDurations(1), 30);
+        assertEquals(bakedGoods.getCosts(1), new Money(8, (byte) 50));
     }
 
     /**
@@ -95,9 +95,9 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
-        assertEquals(bakedGoods.getNames().get(0), "Pie");
-        assertEquals(bakedGoods.getNames().get(1), "Banana Bread");
-        assertEquals(bakedGoods.getNames().get(2), "Muffin");
+        assertEquals(bakedGoods.getNames(0), "Pie");
+        assertEquals(bakedGoods.getNames(1), "Banana Bread");
+        assertEquals(bakedGoods.getNames(2), "Muffin");
     }
 
     /**
@@ -108,9 +108,9 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
-        assertEquals(bakedGoods.getBatches().getValue(0), 5);
-        assertEquals(bakedGoods.getBatches().getValue(1), 6);
-        assertEquals(bakedGoods.getBatches().getValue(2), 7);
+        assertEquals(bakedGoods.getBatches(0), 5);
+        assertEquals(bakedGoods.getBatches(1), 6);
+        assertEquals(bakedGoods.getBatches(2), 7);
     }
 
     /**
@@ -121,9 +121,9 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
-        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(375, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(420, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getTemps(0), new Temperature(375, 'F'));
+        assertEquals(bakedGoods.getTemps(1), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getTemps(2), new Temperature(355, 'F'));
     }
 
     /**
@@ -134,9 +134,9 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
-        assertEquals(bakedGoods.getDurations().getValue(0), 50);
-        assertEquals(bakedGoods.getDurations().getValue(1), 12);
-        assertEquals(bakedGoods.getDurations().getValue(2), 30);
+        assertEquals(bakedGoods.getDurations(0), 50);
+        assertEquals(bakedGoods.getDurations(1), 12);
+        assertEquals(bakedGoods.getDurations(2), 30);
     }
 
     /**
@@ -147,9 +147,9 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
-        assertEquals(bakedGoods.getCosts().getValue(0), new Money(12, (byte) 50));
-        assertEquals(bakedGoods.getCosts().getValue(1), new Money(10, (byte) 50));
-        assertEquals(bakedGoods.getCosts().getValue(2), new Money(8, (byte) 50));
+        assertEquals(bakedGoods.getCosts(0), new Money(12, (byte) 50));
+        assertEquals(bakedGoods.getCosts(1), new Money(10, (byte) 50));
+        assertEquals(bakedGoods.getCosts(2), new Money(8, (byte) 50));
     }
 
     /**
@@ -161,15 +161,15 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
         bakedGoods.sortByName();
-        assertEquals(bakedGoods.getNames().get(0), "Banana Bread");
-        assertEquals(bakedGoods.getNames().get(1), "Muffin");
-        assertEquals(bakedGoods.getNames().get(2), "Pie");
-        assertEquals(bakedGoods.getDurations().getValue(0), 12);
-        assertEquals(bakedGoods.getDurations().getValue(1), 30);
-        assertEquals(bakedGoods.getDurations().getValue(2), 50);
-        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(420, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(355, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(375, 'F'));
+        assertEquals(bakedGoods.getNames(0), "Banana Bread");
+        assertEquals(bakedGoods.getNames(1), "Muffin");
+        assertEquals(bakedGoods.getNames(2), "Pie");
+        assertEquals(bakedGoods.getDurations(0), 12);
+        assertEquals(bakedGoods.getDurations(1), 30);
+        assertEquals(bakedGoods.getDurations(2), 50);
+        assertEquals(bakedGoods.getTemps(0), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getTemps(1), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getTemps(2), new Temperature(375, 'F'));
     }
 
     /**
@@ -181,15 +181,15 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
         bakedGoods.sortByBatches();
-        assertEquals(bakedGoods.getNames().get(0), "Pie");
-        assertEquals(bakedGoods.getNames().get(1), "Banana Bread");
-        assertEquals(bakedGoods.getNames().get(2), "Muffin");
-        assertEquals(bakedGoods.getDurations().getValue(0), 50);
-        assertEquals(bakedGoods.getDurations().getValue(1), 12);
-        assertEquals(bakedGoods.getDurations().getValue(2), 30);
-        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(375, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(420, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getNames(0), "Pie");
+        assertEquals(bakedGoods.getNames(1), "Banana Bread");
+        assertEquals(bakedGoods.getNames(2), "Muffin");
+        assertEquals(bakedGoods.getDurations(0), 50);
+        assertEquals(bakedGoods.getDurations(1), 12);
+        assertEquals(bakedGoods.getDurations(2), 30);
+        assertEquals(bakedGoods.getTemps(0), new Temperature(375, 'F'));
+        assertEquals(bakedGoods.getTemps(1), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getTemps(2), new Temperature(355, 'F'));
     }
 
     /**
@@ -201,15 +201,15 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
         bakedGoods.sortByTemps();
-        assertEquals(bakedGoods.getNames().get(0), "Muffin");
-        assertEquals(bakedGoods.getNames().get(1), "Pie");
-        assertEquals(bakedGoods.getNames().get(2), "Banana Bread");
-        assertEquals(bakedGoods.getDurations().getValue(0), 30);
-        assertEquals(bakedGoods.getDurations().getValue(1), 50);
-        assertEquals(bakedGoods.getDurations().getValue(2), 12);
-        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(355, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(375, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getNames(0), "Muffin");
+        assertEquals(bakedGoods.getNames(1), "Pie");
+        assertEquals(bakedGoods.getNames(2), "Banana Bread");
+        assertEquals(bakedGoods.getDurations(0), 30);
+        assertEquals(bakedGoods.getDurations(1), 50);
+        assertEquals(bakedGoods.getDurations(2), 12);
+        assertEquals(bakedGoods.getTemps(0), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getTemps(1), new Temperature(375, 'F'));
+        assertEquals(bakedGoods.getTemps(2), new Temperature(420, 'F'));
     }
 
     /**
@@ -221,15 +221,15 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
         bakedGoods.sortByDuration();
-        assertEquals(bakedGoods.getNames().get(0), "Banana Bread");
-        assertEquals(bakedGoods.getNames().get(1), "Muffin");
-        assertEquals(bakedGoods.getNames().get(2), "Pie");
-        assertEquals(bakedGoods.getDurations().getValue(0), 12);
-        assertEquals(bakedGoods.getDurations().getValue(1), 30);
-        assertEquals(bakedGoods.getDurations().getValue(2), 50);
-        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(420, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(355, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(375, 'F'));
+        assertEquals(bakedGoods.getNames(0), "Banana Bread");
+        assertEquals(bakedGoods.getNames(1), "Muffin");
+        assertEquals(bakedGoods.getNames(2), "Pie");
+        assertEquals(bakedGoods.getDurations(0), 12);
+        assertEquals(bakedGoods.getDurations(1), 30);
+        assertEquals(bakedGoods.getDurations(2), 50);
+        assertEquals(bakedGoods.getTemps(0), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getTemps(1), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getTemps(2), new Temperature(375, 'F'));
     }
 
     /**
@@ -241,15 +241,15 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
         bakedGoods.sortByCosts();
-        assertEquals(bakedGoods.getNames().get(0), "Muffin");
-        assertEquals(bakedGoods.getNames().get(1), "Banana Bread");
-        assertEquals(bakedGoods.getNames().get(2), "Pie");
-        assertEquals(bakedGoods.getDurations().getValue(0), 30);
-        assertEquals(bakedGoods.getDurations().getValue(1), 12);
-        assertEquals(bakedGoods.getDurations().getValue(2), 50);
-        assertEquals(bakedGoods.getTemps().getValue(0), new Temperature(355, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(1), new Temperature(420, 'F'));
-        assertEquals(bakedGoods.getTemps().getValue(2), new Temperature(375, 'F'));
+        assertEquals(bakedGoods.getNames(0), "Muffin");
+        assertEquals(bakedGoods.getNames(1), "Banana Bread");
+        assertEquals(bakedGoods.getNames(2), "Pie");
+        assertEquals(bakedGoods.getDurations(0), 30);
+        assertEquals(bakedGoods.getDurations(1), 12);
+        assertEquals(bakedGoods.getDurations(2), 50);
+        assertEquals(bakedGoods.getTemps(0), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getTemps(1), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getTemps(2), new Temperature(375, 'F'));
     }
 
     /**
