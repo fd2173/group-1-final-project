@@ -229,7 +229,7 @@ public class BakedGoods {
         try {
             for (int i = 1; i < costs.getCount(); i++) {
                 int position = i;
-                while (position > 0 && ((Money) costs.getValue(position - 1)).compareTo((Money) costs.getValue(position)) > 0) {
+                while (position > 0 && ((Money) costs.getValue(position - 1)).compareTo((Money) costs.getValue(position)) >= 0) {
                     swapStringArrayList(names, position, position - 1);
                     swapIntegerArrayList(batches, position, position - 1);
                     swapNumericArrayList(temps, position, position - 1);
