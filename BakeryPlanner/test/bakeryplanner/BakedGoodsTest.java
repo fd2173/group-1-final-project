@@ -1,5 +1,6 @@
 package bakeryplanner;
 
+import java.io.File;
 import java.util.ArrayList;
 import numberlist.IndexException;
 import numberlist.objectlist.Complex;
@@ -34,6 +35,10 @@ public class BakedGoodsTest {
 
     @Before
     public void setUp() {
+        File ser = new File("BakedGoods.ser");
+        if (ser.exists()) {
+            ser.delete();
+        }
         bakedGoods = new BakedGoods();
     }
 

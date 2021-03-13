@@ -17,7 +17,7 @@ import numberlist.primitivelist.IntegerArrayList;
  *
  * @author Octavia Stappart
  * @author Robert Crocker
- * @version 03/12/21 3:58 am
+ * @version 03/12/21
  */
 public class BakedGoods {
 
