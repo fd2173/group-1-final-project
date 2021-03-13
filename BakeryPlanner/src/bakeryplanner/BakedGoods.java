@@ -1,5 +1,10 @@
 package bakeryplanner;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import numberlist.IndexException;
 import numberlist.objectlist.Copiable;
@@ -10,7 +15,8 @@ import numberlist.primitivelist.IntegerArrayList;
 
 /**
  *
- * @author feny4
+ * @author Octavia Stappart
+ * @author Robert Crocker
  * @version 03/12/21 3:58 am
  */
 public class BakedGoods {
@@ -46,6 +52,7 @@ public class BakedGoods {
         temps.add(temp);
         durations.add(duration);
         costs.add(cost);
+        writeCollection();
     }
 
     /**
@@ -64,6 +71,7 @@ public class BakedGoods {
         temps.set(index, temp);
         durations.set(index, duration);
         costs.set(index, cost);
+        writeCollection();
     }
 
     /**
@@ -77,6 +85,7 @@ public class BakedGoods {
         temps.remove(index);
         durations.remove(index);
         costs.remove(index);
+        writeCollection();
     }
 
     /**
@@ -152,6 +161,7 @@ public class BakedGoods {
                     swapIntegerArrayList(durations, position, position - 1);
                     swapNumericArrayList(costs, position, position - 1);
                     position--;
+                    writeCollection();
                 }
             }
         } catch (IndexException ex) {
@@ -173,6 +183,7 @@ public class BakedGoods {
                     swapIntegerArrayList(durations, position, position - 1);
                     swapNumericArrayList(costs, position, position - 1);
                     position--;
+                    writeCollection();
                 }
             }
         } catch (IndexException ex) {
@@ -194,6 +205,7 @@ public class BakedGoods {
                     swapIntegerArrayList(durations, position, position - 1);
                     swapNumericArrayList(costs, position, position - 1);
                     position--;
+                    writeCollection();
                 }
             }
         } catch (IndexException ex) {
@@ -215,6 +227,7 @@ public class BakedGoods {
                     swapIntegerArrayList(durations, position, position - 1);
                     swapNumericArrayList(costs, position, position - 1);
                     position--;
+                    writeCollection();
                 }
             }
         } catch (IndexException ex) {
@@ -236,6 +249,7 @@ public class BakedGoods {
                     swapIntegerArrayList(durations, position, position - 1);
                     swapNumericArrayList(costs, position, position - 1);
                     position--;
+                    writeCollection();
                 }
             }
         } catch (IndexException ex) {
@@ -331,6 +345,46 @@ public class BakedGoods {
     public Temperature averageTemp() {
         Temperature averageTemp = this.totalTemp().divide(temps.getCount());
         return averageTemp;
+    }
+
+    /**
+     *
+     *
+     * @return Boolean, success as true.
+     */
+    public boolean writeCollection() {
+        boolean success = true;
+        try (FileOutputStream fos = new FileOutputStream("bakedGoods.ser");
+                ObjectOutputStream output = new ObjectOutputStream(fos)) {
+            output.writeObject(names);
+            output.writeObject(batches);
+            output.writeObject(temps);
+            output.writeObject(durations);
+            output.writeObject(costs);
+        } catch (Exception ex) {
+            System.out.println("Cannot write to file: \n" + ex.getMessage());
+            success = false;
+        }
+        return success;
+    }
+
+    private boolean readCollection() {
+        boolean success = true;
+        File ser = new File("bakedGoods.ser");
+        if (ser.exists()) {
+            try (FileInputStream fis = new FileInputStream("bakedGoods.ser");
+                    ObjectInputStream input = new ObjectInputStream(fis)) {
+                names = (ArrayList<String>) input.readObject();
+                batches = (IntegerArrayList) input.readObject();
+                temps = (NumericArrayList) input.readObject();
+                durations = (IntegerArrayList) input.readObject();
+                costs = (NumericArrayList) input.readObject();
+            } catch (Exception ex) {
+                System.out.println("Cannot read from file: \n" + ex.getMessage());
+                success = false;
+            }
+        }
+        return success;
     }
 
 }
