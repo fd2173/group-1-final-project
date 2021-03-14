@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import numberlist.IndexException;
 import numberlist.objectlist.Copiable;
 import numberlist.objectlist.Money;
@@ -17,6 +19,7 @@ import numberlist.primitivelist.IntegerArrayList;
  *
  * @author Octavia Stappart
  * @author Robert Crocker
+ * @author Feny Dai
  * @version 03/12/21
  */
 public class BakedGoods {
@@ -36,6 +39,7 @@ public class BakedGoods {
         this.temps = new NumericArrayList();
         this.durations = new IntegerArrayList();
         this.costs = new NumericArrayList();
+        readCollection();
     }
 
     /**
@@ -92,29 +96,96 @@ public class BakedGoods {
      *
      * @param index
      * @return
+     * @throws IndexException
      */
-    public String getNames(int index) {
+    public String getGoodString(int index) throws IndexException {
+        return this.getName(index) + " - "
+                + this.getBatch(index) + "x  "
+                + this.getTemp(index).toString() + " , "
+                + this.getDuration(index) + "min. "
+                + this.getCost(index).toString();
+
+    }
+
+    /**
+     *
+     * @param index
+     * @return
+     * @throws IndexException
+     */
+    public String[] getGoodArray(int index) throws IndexException {
+        String[] arr = new String[6];
+        arr[0] = this.getName(index);
+        arr[1] = Long.toString(this.getBatch(index));
+        arr[2] = Double.toString(this.getTemp(index).getValue());
+        arr[3] = Character.toString(this.getTemp(index).getUnit());
+        arr[4] = Long.toString(this.getDuration(index));
+        arr[5] = Double.toString((double) this.getCost(index).getDollars()
+                + (double) this.getCost(index).getCents());
+        return arr;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getNames() {
+        String[] arr = new String[this.getCount()];
+        for (int i = 0; i < this.getCount(); i++) {
+            arr[i] = this.getName(i);
+        }
+        return arr;
+    }
+
+    /**
+     *
+     * @param index
+     * @return
+     */
+    public String getName(int index) {
         return names.get(index);
     }
 
     /**
      *
+     * @return
+     */
+    public long[] getBatches() {
+        long[] arr = new long[this.getCount()];
+        for (int i = 0; i < this.getCount(); i++) {
+            try {
+                arr[i] = this.getBatch(i);
+            } catch (IndexException ex) {
+                Logger.getLogger(BakedGoods.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return arr;
+    }
+
+    /**
+     *
      * @param index
      * @return
      * @throws numberlist.IndexException
      */
-    public long getBatches(int index) throws IndexException {
+    public long getBatch(int index) throws IndexException {
         return batches.getValue(index);
     }
 
     /**
      *
-     * @param index
      * @return
-     * @throws numberlist.IndexException
      */
-    public Copiable getTemps(int index) throws IndexException {
-        return temps.getValue(index);
+    public Temperature[] getTemps() {
+        Temperature[] arr = new Temperature[this.getCount()];
+        for (int i = 0; i < this.getCount(); i++) {
+            try {
+                arr[i] = this.getTemp(i);
+            } catch (IndexException ex) {
+                Logger.getLogger(BakedGoods.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return arr;
     }
 
     /**
@@ -123,18 +194,60 @@ public class BakedGoods {
      * @return
      * @throws numberlist.IndexException
      */
-    public long getDurations(int index) throws IndexException {
+    public Temperature getTemp(int index) throws IndexException {
+        return (Temperature) temps.getValue(index);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public long[] getDurations() {
+        long[] arr = new long[this.getCount()];
+        for (int i = 0; i < this.getCount(); i++) {
+            try {
+                arr[i] = this.getDuration(i);
+            } catch (IndexException ex) {
+                Logger.getLogger(BakedGoods.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return arr;
+    }
+
+    /**
+     *
+     * @param index
+     * @return
+     * @throws numberlist.IndexException
+     */
+    public long getDuration(int index) throws IndexException {
         return durations.getValue(index);
     }
 
     /**
      *
+     * @return
+     */
+    public Money[] getCosts() {
+        Money[] arr = new Money[this.getCount()];
+        for (int i = 0; i < this.getCount(); i++) {
+            try {
+                arr[i] = this.getCost(i);
+            } catch (IndexException ex) {
+                Logger.getLogger(BakedGoods.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return arr;
+    }
+
+    /**
+     *
      * @param index
      * @return
      * @throws numberlist.IndexException
      */
-    public Copiable getCosts(int index) throws IndexException {
-        return costs.getValue(index);
+    public Money getCost(int index) throws IndexException {
+        return (Money) costs.getValue(index);
     }
 
     /**
@@ -161,7 +274,6 @@ public class BakedGoods {
                     swapIntegerArrayList(durations, position, position - 1);
                     swapNumericArrayList(costs, position, position - 1);
                     position--;
-                    writeCollection();
                 }
             }
         } catch (IndexException ex) {
@@ -183,7 +295,6 @@ public class BakedGoods {
                     swapIntegerArrayList(durations, position, position - 1);
                     swapNumericArrayList(costs, position, position - 1);
                     position--;
-                    writeCollection();
                 }
             }
         } catch (IndexException ex) {
@@ -205,7 +316,6 @@ public class BakedGoods {
                     swapIntegerArrayList(durations, position, position - 1);
                     swapNumericArrayList(costs, position, position - 1);
                     position--;
-                    writeCollection();
                 }
             }
         } catch (IndexException ex) {
@@ -227,7 +337,6 @@ public class BakedGoods {
                     swapIntegerArrayList(durations, position, position - 1);
                     swapNumericArrayList(costs, position, position - 1);
                     position--;
-                    writeCollection();
                 }
             }
         } catch (IndexException ex) {
@@ -249,7 +358,6 @@ public class BakedGoods {
                     swapIntegerArrayList(durations, position, position - 1);
                     swapNumericArrayList(costs, position, position - 1);
                     position--;
-                    writeCollection();
                 }
             }
         } catch (IndexException ex) {
@@ -368,7 +476,7 @@ public class BakedGoods {
         return success;
     }
 
-    private boolean readCollection() {
+    public boolean readCollection() {
         boolean success = true;
         File ser = new File("bakedGoods.ser");
         if (ser.exists()) {
