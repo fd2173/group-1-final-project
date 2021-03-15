@@ -12,7 +12,7 @@ import numberlist.objectlist.Temperature;
 public class BakeryPlanner {
 
     public static void main(String[] args) {
-        //BakeryUI app = new BakeryUI();
-        //Application.launch(BakeryUI.class);
+        BakeryUI app = new BakeryUI();
+        Application.launch(BakeryUI.class);
     }
 }
