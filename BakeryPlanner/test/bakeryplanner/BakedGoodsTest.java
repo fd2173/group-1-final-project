@@ -453,15 +453,16 @@ public class BakedGoodsTest {
     }
 
     /**
-     * Test of calcAveTemp method, of class BakedGoods.
+     * Test of averageTemp method, of class BakedGoods.
      */
     @Test
     public void testAverageTemp() {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
-        bakedGoods.averageTemp();
-        assertEquals(bakedGoods.averageTemp(), new Temperature(383, 'F'));
+        Temperature actualAverage = bakedGoods.averageTemp();
+        Temperature expectedAverage = new Temperature(383.3333333333333, 'F');
+        assertEquals(expectedAverage, actualAverage);
     }
 
     @Test
