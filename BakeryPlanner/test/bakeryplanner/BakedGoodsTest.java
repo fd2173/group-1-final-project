@@ -191,25 +191,31 @@ public class BakedGoodsTest {
         bakedGoods.addGood("Cheese Danish", 11, new Temperature(200, 'F'), 70, new Money(8, (byte) 50));
         bakedGoods.addGood("French Garlic Bread", 15, new Temperature(200, 'F'), 70, new Money(11, (byte) 50));
         bakedGoods.addGood("Chocolate Croissant", 13, new Temperature(350, 'F'), 63, new Money(12, (byte) 50));
+        bakedGoods.addGood("29a", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        bakedGoods.addGood("10b", 11, new Temperature(200, 'F'), 70, new Money(8, (byte) 50));
+        bakedGoods.addGood("5c", 15, new Temperature(200, 'F'), 70, new Money(11, (byte) 50));
         bakedGoods.sortByName();
-        assertEquals(bakedGoods.getName(0), "Banana Bread");
-        assertEquals(bakedGoods.getName(1), "Cheese Danish");
-        assertEquals(bakedGoods.getName(2), "Chocolate Croissant");
-        assertEquals(bakedGoods.getName(3), "French Garlic Bread");
-        assertEquals(bakedGoods.getName(4), "Muffin");
-        assertEquals(bakedGoods.getName(5), "Pie");
-        assertEquals(bakedGoods.getDuration(0), 12);
-        assertEquals(bakedGoods.getDuration(1), 70);
-        assertEquals(bakedGoods.getDuration(2), 63);
-        assertEquals(bakedGoods.getDuration(3), 70);
-        assertEquals(bakedGoods.getDuration(4), 30);
-        assertEquals(bakedGoods.getDuration(5), 50);
-        assertEquals(bakedGoods.getTemp(0), new Temperature(420, 'F'));
-        assertEquals(bakedGoods.getTemp(1), new Temperature(200, 'F'));
-        assertEquals(bakedGoods.getTemp(2), new Temperature(350, 'F'));
-        assertEquals(bakedGoods.getTemp(3), new Temperature(200, 'F'));
-        assertEquals(bakedGoods.getTemp(4), new Temperature(355, 'F'));
-        assertEquals(bakedGoods.getTemp(5), new Temperature(375, 'F'));
+        assertEquals(bakedGoods.getName(0), "10b");
+        assertEquals(bakedGoods.getName(1), "29a");
+        assertEquals(bakedGoods.getName(2), "5c");
+        assertEquals(bakedGoods.getName(3), "Banana Bread");
+        assertEquals(bakedGoods.getName(4), "Cheese Danish");
+        assertEquals(bakedGoods.getName(5), "Chocolate Croissant");
+        assertEquals(bakedGoods.getName(6), "French Garlic Bread");
+        assertEquals(bakedGoods.getName(7), "Muffin");
+        assertEquals(bakedGoods.getName(8), "Pie");
+        assertEquals(bakedGoods.getDuration(3), 12);
+        assertEquals(bakedGoods.getDuration(4), 70);
+        assertEquals(bakedGoods.getDuration(5), 63);
+        assertEquals(bakedGoods.getDuration(6), 70);
+        assertEquals(bakedGoods.getDuration(7), 30);
+        assertEquals(bakedGoods.getDuration(8), 50);
+        assertEquals(bakedGoods.getTemp(3), new Temperature(420, 'F'));
+        assertEquals(bakedGoods.getTemp(4), new Temperature(200, 'F'));
+        assertEquals(bakedGoods.getTemp(5), new Temperature(350, 'F'));
+        assertEquals(bakedGoods.getTemp(6), new Temperature(200, 'F'));
+        assertEquals(bakedGoods.getTemp(7), new Temperature(355, 'F'));
+        assertEquals(bakedGoods.getTemp(8), new Temperature(375, 'F'));
     }
 
     /**
@@ -344,73 +350,6 @@ public class BakedGoodsTest {
         assertEquals(bakedGoods.getCost(3), new Money(11, (byte) 50));
         assertEquals(bakedGoods.getCost(4), new Money(12, (byte) 50));
         assertEquals(bakedGoods.getCost(5), new Money(12, (byte) 50));
-    }
-
-    /**
-     * Test of swapStringArrayList method, of class BakedGoods.
-     */
-    @Test
-    public void testSwapStringArrayList() {
-        //String temp = names.get(i);
-        //names.set(i, names.get(j));
-        //names.set(j, (temp));
-        //swapStringArrayList(ArrayList<String> names, int i, int j)
-        ArrayList<String> nameList = new ArrayList<String>();
-        nameList.add("Pie");
-        nameList.add("Banana Bread");
-        nameList.add("Muffin");
-        nameList.add("Cheese Danish");
-        nameList.add("French Garlic Bread");
-        nameList.add("Chocolate Croissant");
-        bakedGoods.swapStringArrayList(nameList, 2, 5);
-        assertEquals("Pie", nameList.get(0));
-        assertEquals("Banana Bread", nameList.get(1));
-        assertEquals("Chocolate Croissant", nameList.get(2));
-        assertEquals("Cheese Danish", nameList.get(3));
-        assertEquals("French Garlic Bread", nameList.get(4));
-        assertEquals("Muffin", nameList.get(5));
-    }
-
-    /**
-     * Test of swapNumericArrayList method, of class BakedGoods.
-     */
-    @Test
-    public void testSwapNumericArrayList() throws IndexException {
-        NumericArrayList costList = new NumericArrayList();
-        costList.add(new Money(9, (byte) 40));
-        costList.add(new Money(12, (byte) 50));
-        costList.add(new Money(8, (byte) 50));
-        costList.add(new Money(7, (byte) 30));
-        costList.add(new Money(8, (byte) 50));
-        costList.add(new Money(8, (byte) 25));
-        bakedGoods.swapNumericArrayList(costList, 2, 5);
-        assertEquals(new Money(9, (byte) 40), costList.getValue(0));
-        assertEquals(new Money(12, (byte) 50), costList.getValue(1));
-        assertEquals(new Money(8, (byte) 25), costList.getValue(2));
-        assertEquals(new Money(7, (byte) 30), costList.getValue(3));
-        assertEquals(new Money(8, (byte) 50), costList.getValue(4));
-        assertEquals(new Money(8, (byte) 50), costList.getValue(5));
-    }
-
-    /**
-     * Test of swapIntegerArrayList method, of class BakedGoods.
-     */
-    @Test
-    public void testSwapIntegerArrayList() throws Exception {
-        IntegerArrayList durationList = new IntegerArrayList();
-        durationList.add(10);
-        durationList.add(20);
-        durationList.add(30);
-        durationList.add(40);
-        durationList.add(50);
-        durationList.add(60);
-        bakedGoods.swapIntegerArrayList(durationList, 2, 5);
-        assertEquals(10, durationList.getValue(0));
-        assertEquals(20, durationList.getValue(1));
-        assertEquals(60, durationList.getValue(2));
-        assertEquals(40, durationList.getValue(3));
-        assertEquals(50, durationList.getValue(4));
-        assertEquals(30, durationList.getValue(5));
     }
 
     /**

@@ -121,7 +121,7 @@ public class BakedGoods {
         arr[3] = Character.toString(this.getTemp(index).getUnit());
         arr[4] = Long.toString(this.getDuration(index));
         arr[5] = Double.toString((double) this.getCost(index).getDollars()
-                + (double) this.getCost(index).getCents());
+                + ((double) this.getCost(index).getCents() / 100));
         return arr;
     }
 
@@ -371,7 +371,7 @@ public class BakedGoods {
      * @param i
      * @param j
      */
-    public void swapStringArrayList(ArrayList<String> names, int i, int j) {
+    private void swapStringArrayList(ArrayList<String> names, int i, int j) {
         String temp = names.get(i);
         names.set(i, names.get(j));
         names.set(j, (temp));
@@ -384,7 +384,7 @@ public class BakedGoods {
      * @param j
      * @throws IndexException
      */
-    public void swapNumericArrayList(NumericArrayList list, int i, int j) throws IndexException {
+    private void swapNumericArrayList(NumericArrayList list, int i, int j) throws IndexException {
         Copiable temp = list.getValue(i);
         list.set(i, list.getValue(j));
         list.set(j, (temp));
@@ -397,10 +397,22 @@ public class BakedGoods {
      * @param j
      * @throws IndexException
      */
-    public void swapIntegerArrayList(IntegerArrayList list, int i, int j) throws IndexException {
+    private void swapIntegerArrayList(IntegerArrayList list, int i, int j) throws IndexException {
         long temp = list.getValue(i);
         list.set(i, list.getValue(j));
         list.set(j, (temp));
+    }
+
+    public double totalDuration() {
+        double total = 0;
+        try {
+            for (int i = 0; i < costs.getCount(); i++) {
+                total += this.getDuration(i);
+            }
+        } catch (IndexException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return Math.round(total);
     }
 
     /**
@@ -424,6 +436,9 @@ public class BakedGoods {
      * @return
      */
     public Money averageCost() {
+        if (costs.getCount() == 0) {
+            return new Money(0, (byte) 0);
+        }
         Money averageCost = this.totalCost().divide(costs.getCount());
         return averageCost;
     }

@@ -100,6 +100,7 @@ public final class Money implements Copiable, Comparable<Money>, Serializable {
     }
     
     public Money divide(int divisor) {
+        
         long value = dollars * 100;
         value += cents;
         long result = value / divisor;
