@@ -1,13 +1,9 @@
 package bakeryplanner;
 
 import java.io.File;
-import java.util.ArrayList;
 import numberlist.IndexException;
-import numberlist.objectlist.Complex;
 import numberlist.objectlist.Money;
-import numberlist.objectlist.NumericArrayList;
 import numberlist.objectlist.Temperature;
-import numberlist.primitivelist.IntegerArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,8 +12,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * @author Robert Crocker
  * @author Feny Dai
+ * @author Octavia Stappart
+ * @date 03/14/21
+ * @version 1.0
  */
 public class BakedGoodsTest {
 
@@ -64,6 +63,8 @@ public class BakedGoodsTest {
 
     /**
      * Test of updateGood method, of class BakedGoods.
+     *
+     * @throws numberlist.IndexException
      */
     @Test
     public void testUpdateGood() throws IndexException {
@@ -89,6 +90,8 @@ public class BakedGoodsTest {
 
     /**
      * Test of deleteGood method, of class BakedGoods.
+     *
+     * @throws java.lang.Exception
      */
     @Test
     public void testDeleteGood() throws Exception {
@@ -116,10 +119,54 @@ public class BakedGoodsTest {
     }
 
     /**
-     * Test of getNames method, of class BakedGoods.
+     * Test of getGoodString method, of class BakedGoods.
+     *
+     * @throws java.lang.Exception
      */
     @Test
-    public void testGetNames() {
+    public void testGetGoodString() throws Exception {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        System.out.println(this.bakedGoods.getGoodString(0));
+        assertEquals(this.bakedGoods.getGoodString(0),
+                "Pie - 5x  375° F , 50min. $12.50");
+    }
+
+    @Test
+    public void testgetGoodStringMultiple() throws IndexException {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        bakedGoods.addGood("Cheese Danish", 11, new Temperature(200, 'F'), 70, new Money(8, (byte) 50));
+        bakedGoods.addGood("French Garlic Bread", 15, new Temperature(200, 'F'), 70, new Money(11, (byte) 50));
+        bakedGoods.addGood("Chocolate Croissant", 13, new Temperature(350, 'F'), 63, new Money(12, (byte) 50));
+        bakedGoods.addGood("Cookies", 8, new Temperature(200, 'C'), 15, new Money(10, (byte) 20));
+        assertEquals("Cheese Danish - 11x  200° F , 70min. $8.50", this.bakedGoods.getGoodString(3));
+        assertEquals("Cookies - 8x  200° C , 15min. $10.20", this.bakedGoods.getGoodString(6));
+    }
+
+    /**
+     * Test of getGoodArray method, of class BakedGoods.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testGetGoodArray() throws Exception {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 55));
+        String[] arr = bakedGoods.getGoodArray(0);
+        assertEquals("Pie", arr[0]);
+        assertEquals("5", arr[1]);
+        assertEquals("375.0", arr[2]);
+        assertEquals("F", arr[3]);
+        assertEquals("50", arr[4]);
+        System.out.println(arr[5]);
+        assertEquals("12.55", arr[5]);
+    }
+
+    /**
+     * Test of getName method, of class BakedGoods.
+     */
+    @Test
+    public void testGetName() {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
@@ -129,10 +176,12 @@ public class BakedGoodsTest {
     }
 
     /**
-     * Test of getBatches method, of class BakedGoods.
+     * Test of getBatch method, of class BakedGoods.
+     *
+     * @throws java.lang.Exception
      */
     @Test
-    public void testGetBatches() throws IndexException {
+    public void testGetBatch() throws Exception {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
@@ -142,10 +191,12 @@ public class BakedGoodsTest {
     }
 
     /**
-     * Test of getTemps method, of class BakedGoods.
+     * Test of getTemp method, of class BakedGoods.
+     *
+     * @throws java.lang.Exception
      */
     @Test
-    public void testGetTemps() throws IndexException {
+    public void testGetTemp() throws Exception {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
@@ -156,28 +207,49 @@ public class BakedGoodsTest {
 
     /**
      * Test of getDurations method, of class BakedGoods.
+     *
+     * @throws numberlist.IndexException
      */
     @Test
-    public void testGetDurations() throws IndexException {
+    public void testGetDurations() throws Exception {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
-        assertEquals(bakedGoods.getDuration(0), 50);
-        assertEquals(bakedGoods.getDuration(1), 12);
-        assertEquals(bakedGoods.getDuration(2), 30);
+        long[] durations = bakedGoods.getDurations();
+        assertEquals(50, durations[0]);
+        assertEquals(12, durations[1]);
+        assertEquals(30, durations[2]);
     }
 
     /**
-     * Test of getCosts method, of class BakedGoods.
+     * Test of getCost method, of class BakedGoods.
+     *
+     * @throws java.lang.Exception
      */
     @Test
-    public void testGetCosts() throws IndexException {
+    public void testGetCost() throws Exception {
         bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
         bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
         bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
         assertEquals(bakedGoods.getCost(0), new Money(12, (byte) 50));
         assertEquals(bakedGoods.getCost(1), new Money(10, (byte) 50));
         assertEquals(bakedGoods.getCost(2), new Money(8, (byte) 50));
+    }
+
+    /**
+     * Test of getCount method, of class BakedGoods.
+     */
+    @Test
+    public void testGetCount() {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        assertEquals(3, bakedGoods.getCount());
+    }
+
+    @Test
+    public void testGetCountEmpty() {
+        assertEquals(0, bakedGoods.getCount());
     }
 
     /**
@@ -220,6 +292,8 @@ public class BakedGoodsTest {
 
     /**
      * Test of sortByBatches method, of class BakedGoods.
+     *
+     * @throws numberlist.IndexException
      */
     @Test
     public void testSortByBatches() throws IndexException {
@@ -258,6 +332,8 @@ public class BakedGoodsTest {
 
     /**
      * Test of sortByTemps method, of class BakedGoods.
+     *
+     * @throws numberlist.IndexException
      */
     @Test
     public void testSortByTemps() throws IndexException {
@@ -290,6 +366,8 @@ public class BakedGoodsTest {
 
     /**
      * Test of sortByDuration method, of class BakedGoods.
+     *
+     * @throws numberlist.IndexException
      */
     @Test
     public void testSortByDuration() throws IndexException {
@@ -322,6 +400,8 @@ public class BakedGoodsTest {
 
     /**
      * Test of sortByCosts method, of class BakedGoods.
+     *
+     * @throws numberlist.IndexException
      */
     @Test
     public void testSortByCosts() throws IndexException {
@@ -354,6 +434,8 @@ public class BakedGoodsTest {
 
     /**
      * Test of totalCost method, of class BakedGoods.
+     *
+     * @throws numberlist.IndexException
      */
     @Test
     public void testTotalCost() throws IndexException {
@@ -366,7 +448,9 @@ public class BakedGoodsTest {
     }
 
     /**
-     * Test of calcAveCost method, of class BakedGoods.
+     * Test of averageCost method, of class BakedGoods.
+     *
+     * @throws numberlist.IndexException
      */
     @Test
     public void testAverageCost() throws IndexException {
@@ -378,8 +462,16 @@ public class BakedGoodsTest {
         assertEquals(bakedGoods.averageCost(), new Money(10, (byte) 50));
     }
 
+    @Test
+    public void testAverageCostCountZero() throws IndexException {
+        assertEquals(0, bakedGoods.getCount());
+        assertEquals(new Money(0, (byte) 0), bakedGoods.averageCost());
+    }
+
     /**
      * Test of totalTemp method, of class BakedGoods.
+     *
+     * @throws numberlist.IndexException
      */
     @Test
     public void testTotalTemp() throws IndexException {
@@ -426,4 +518,39 @@ public class BakedGoodsTest {
         assertEquals(bakedGoods.getName(5), "Chocolate Croissant");
     }
 
+    /**
+     * Test of getDuration method, of class BakedGoods.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testGetDuration() throws Exception {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        assertEquals(bakedGoods.getDuration(0), 50);
+        assertEquals(bakedGoods.getDuration(1), 12);
+        assertEquals(bakedGoods.getDuration(2), 30);
+    }
+
+    /**
+     * Test of totalDuration method, of class BakedGoods.
+     */
+    @Test
+    public void testTotalDuration() {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 50, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 12, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 30, new Money(8, (byte) 50));
+        double total = bakedGoods.totalDuration();
+        assertEquals(92, total, 0.1);
+    }
+
+    @Test
+    public void testTotalDurationZero() {
+        bakedGoods.addGood("Pie", 5, new Temperature(375, 'F'), 0, new Money(12, (byte) 50));
+        bakedGoods.addGood("Banana Bread", 6, new Temperature(420, 'F'), 0, new Money(10, (byte) 50));
+        bakedGoods.addGood("Muffin", 7, new Temperature(355, 'F'), 0, new Money(8, (byte) 50));
+        double total = bakedGoods.totalDuration();
+        assertEquals(0, total, 0.1);
+    }
 }

@@ -30,8 +30,10 @@ import java.util.Optional;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- *
- * @author crocker
+ * @author Octavia Stappart
+ * @author Robert Crocker
+ * @author Feny Dai
+ * @version 03/16/21
  */
 public class BakeryUI extends Application {
 
@@ -292,7 +294,7 @@ public class BakeryUI extends Application {
         //building the layout
         rightPane.setAlignment(Pos.TOP_CENTER);
         rightPane.setBackground(new Background(new BackgroundFill(
-                Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                Color.LIMEGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         //Chart Area
         VBox chartArea = getChartArea();
         rightPane.getChildren().add(chartArea);
@@ -333,7 +335,7 @@ public class BakeryUI extends Application {
         GridPane genStats = new GridPane();
         genStats.setHgap(5);
         genStats.setVgap(10);
-        Label lblGoods = new Label("Total Goods: ");
+        Label lblGoods = new Label("Total Batch(es): ");
         lblGoods.setFont(Font.font("sans serif", FontWeight.BOLD, 15));
         Label lblGoodsCalc = new Label(String.valueOf(list.getCount()));
         Label lblDura = new Label("Total Duration (min): ");
@@ -384,13 +386,13 @@ public class BakeryUI extends Application {
             Money newCost = new Money(dollars, (byte) cents);
             list.addGood(newName, newBatch, newTemp, newDuration, newCost);
             populateList();
+            this.clearFields();
         }
 
     }
 
     public void updateGood() {
         if (inputValidation() == true) {
-
             try {
                 if (list.getCount() == 0) {
                     errorSound.beep();
@@ -409,7 +411,6 @@ public class BakeryUI extends Application {
                 list.updateGood(selected, newName, newBatch, newTemp, newDuration, newCost);
                 populateList();
             } catch (IndexException ex) {
-
             }
         }
     }
@@ -513,20 +514,20 @@ public class BakeryUI extends Application {
 
     public BarChart getBatchChart() {
         final NumberAxis xAxis = new NumberAxis();
-        xAxis.setLabel("Count");
+        xAxis.setLabel("Total Batch(es) or Item(s) Count");
         xAxis.setAutoRanging(true);
-
         final CategoryAxis yAxis = new CategoryAxis();
         yAxis.setAutoRanging(true);
         final BarChart<Number, String> statsBatch = new BarChart<>(xAxis, yAxis);
-        statsBatch.setTitle("Batches");
+        statsBatch.setTitle("Total Batch(es) or Item(s) Count");
         statsBatch.setLegendVisible(false);
         yAxis.setLabel("Job");
         String[] names = list.getNames();
         long[] batches = list.getBatches();
         Series series = new Series();
         for (int i = 0; i < list.getCount(); i++) {
-            series.getData().add(new Data(batches[i], names[i]));
+            long total = list.getTotalBatchesByName(names[i]);
+            series.getData().add(new Data(total, names[i]));
         }
         statsBatch.getData().add(series);
 
@@ -535,18 +536,23 @@ public class BakeryUI extends Application {
     }
 
     public BarChart getTempChart() {
-        final NumberAxis xAxis = new NumberAxis("Temperature", 0, 500, 50);
+        final NumberAxis xAxis = new NumberAxis();
+        xAxis.setLabel("Average Temperature (F)");
+        xAxis.setAutoRanging(true);
         final CategoryAxis yAxis = new CategoryAxis();
+        yAxis.setAutoRanging(true);
         final BarChart<Number, String> statsTemp = new BarChart<>(xAxis, yAxis);
-        statsTemp.setTitle("Temps");
+        statsTemp.setTitle("Average Temperature (F)");
         statsTemp.setLegendVisible(false);
         yAxis.setLabel("Job");
         String[] names = list.getNames();
         Temperature[] temps = list.getTemps();
         Series series = new Series();
         for (int i = 0; i < list.getCount(); i++) {
-            series.getData().add(new Data(temps[i].getValue(), names[i] + "( "
-                    + temps[i].getUnit() + " )"));
+            Temperature average = list.averageTempByName(names[i]);
+            series.getData().add(new Data(average.getValue(), names[i]));
+                    
+            //series.getData().add(new Data(average.getDollars() + (average.getCents() / 100), names[i]));
         }
         statsTemp.getData().add(series);
         return statsTemp;
@@ -554,17 +560,21 @@ public class BakeryUI extends Application {
     }
 
     public BarChart getDuraChart() {
-        final NumberAxis xAxis = new NumberAxis("Duration", 0, 200, 20);
+        final NumberAxis xAxis = new NumberAxis();
+        xAxis.setLabel("Average Duration(min)");
+        xAxis.setAutoRanging(true);
         final CategoryAxis yAxis = new CategoryAxis();
+        yAxis.setAutoRanging(true);
         final BarChart<Number, String> statsDura = new BarChart<>(xAxis, yAxis);
-        statsDura.setTitle("Baking Time");
+        statsDura.setTitle("Average Baking Time (min)");
         statsDura.setLegendVisible(false);
         yAxis.setLabel("Job");
         String[] names = list.getNames();
         long[] durations = list.getDurations();
         Series series = new Series();
         for (int i = 0; i < list.getCount(); i++) {
-            series.getData().add(new Data(durations[i], names[i]));
+            double average = list.averageDurationByName(names[i]);
+            series.getData().add(new Data(average, names[i]));
         }
         statsDura.getData().add(series);
         return statsDura;
@@ -572,18 +582,24 @@ public class BakeryUI extends Application {
     }
 
     public BarChart getCostChart() {
-        final NumberAxis xAxis = new NumberAxis("Amount", 0, 20, 2);
+        final NumberAxis xAxis = new NumberAxis();
+        xAxis.setLabel("Average Costs per Batch ($)");
+        xAxis.setAutoRanging(true);
         final CategoryAxis yAxis = new CategoryAxis();
+        yAxis.setAutoRanging(true);
         final BarChart<Number, String> statsCost = new BarChart<>(xAxis, yAxis);
-        statsCost.setTitle("Costs Per Batch");
+        statsCost.setTitle("Average Costs Per Batch Per Item Type");
         statsCost.setLegendVisible(false);
         yAxis.setLabel("Job");
         String[] names = list.getNames();
         Money[] costs = list.getCosts();
         Series series = new Series();
         for (int i = 0; i < list.getCount(); i++) {
-            series.getData().add(new Data(costs[i].getDollars() + (costs[i].getCents() / 100), names[i]));
+            //series.getData().add(new Data(costs[i].getDollars() + (costs[i].getCents() / 100), names[i]));
+            Money average = list.averageCostByName(names[i]);
+            series.getData().add(new Data(average.getDollars() + (average.getCents() / 100), names[i]));
         }
+        
         statsCost.getData().add(series);
         return statsCost;
 

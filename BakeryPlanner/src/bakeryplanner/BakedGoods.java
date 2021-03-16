@@ -16,11 +16,10 @@ import numberlist.objectlist.Temperature;
 import numberlist.primitivelist.IntegerArrayList;
 
 /**
- *
  * @author Octavia Stappart
  * @author Robert Crocker
  * @author Feny Dai
- * @version 03/12/21
+ * @version 03/16/21
  */
 public class BakedGoods {
 
@@ -34,7 +33,7 @@ public class BakedGoods {
      *
      */
     public BakedGoods() {
-        this.names = new ArrayList<String>();
+        this.names = new ArrayList<>();
         this.batches = new IntegerArrayList();
         this.temps = new NumericArrayList();
         this.durations = new IntegerArrayList();
@@ -93,9 +92,13 @@ public class BakedGoods {
     }
 
     /**
+     * Returns a formatted string representation of a BakedGoods object. The
+     * returned string has the following format displaying the object name,
+     * quantity, temperature, minutes, and cost, respectively: "NAME - ##x ###°
+     * , ##min. $##.##"
      *
-     * @param index
-     * @return
+     * @param index of the BakedGoods object
+     * @return the string representation
      * @throws IndexException
      */
     public String getGoodString(int index) throws IndexException {
@@ -104,13 +107,16 @@ public class BakedGoods {
                 + this.getTemp(index).toString() + " , "
                 + this.getDuration(index) + "min. "
                 + this.getCost(index).toString();
-
     }
 
     /**
+     * Returns an array of String objects containing the fields of a BakedGoods
+     * object at specified indices. In order, the fields are placed one per
+     * index as follows: name, batches, temperature value, temperature unit,
+     * duration in minutes, cost.
      *
-     * @param index
-     * @return
+     * @param index of the BakedGoods object
+     * @return the array of String objects
      * @throws IndexException
      */
     public String[] getGoodArray(int index) throws IndexException {
@@ -120,8 +126,7 @@ public class BakedGoods {
         arr[2] = Double.toString(this.getTemp(index).getValue());
         arr[3] = Character.toString(this.getTemp(index).getUnit());
         arr[4] = Long.toString(this.getDuration(index));
-        arr[5] = Double.toString((double) this.getCost(index).getDollars()
-                + ((double) this.getCost(index).getCents() / 100));
+        arr[5] = String.format("%.2f", (this.getCost(index).getDollars() + this.getCost(index).getCents() * (.010)));
         return arr;
     }
 
@@ -170,6 +175,20 @@ public class BakedGoods {
      */
     public long getBatch(int index) throws IndexException {
         return batches.getValue(index);
+    }
+
+    public long getTotalBatchesByName(String name) {
+        long total = 0;
+        try {
+            for (int i = 0; i < batches.getCount(); i++) {
+                if (name.equals(names.get(i))) {
+                    total += batches.getValue(i);
+                }
+            }
+        } catch (IndexException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return total;
     }
 
     /**
@@ -264,7 +283,7 @@ public class BakedGoods {
      */
     public void sortByName() {
         try {
-            ArrayList<String> sortedList = new ArrayList<String>();
+            ArrayList<String> sortedList = new ArrayList<>();
             for (int i = 1; i < names.size(); i++) {
                 int position = i;
                 while (position > 0 && (names.get(position - 1).compareTo(names.get(position)) > 0)) {
@@ -436,11 +455,65 @@ public class BakedGoods {
      * @return
      */
     public Money averageCost() {
-        if (costs.getCount() == 0) {
-            return new Money(0, (byte) 0);
+        Money averageCost = new Money(0, (byte) 0);
+        if (this.getCount() == 0) {
+            return averageCost;
         }
-        Money averageCost = this.totalCost().divide(costs.getCount());
+        averageCost = this.totalCost().divide(costs.getCount());
         return averageCost;
+    }
+
+    public Money averageCostByName(String name) {
+        Money averageCost = new Money(0, (byte) 0);
+        if (this.getCount() == 0) {
+            return averageCost;
+        }
+
+        Money total = new Money(0, (byte) 0);
+        int count = 0;
+        try {
+            for (int i = 0; i < costs.getCount(); i++) {
+                if (name.equals(names.get(i))) {
+                    total = total.add((Money) costs.getValue(i));
+                    count++;
+                }
+            }
+        } catch (IndexException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        if (count == 0) {
+            return total;
+        }
+
+        averageCost = total.divide(count);
+        return averageCost;
+    }
+
+    public double averageDurationByName(String name) {
+        double averageDuration = 0;
+        if (this.getCount() == 0) {
+            return averageDuration;
+        }
+        double total = 0;
+        int count = 0;
+        try {
+            for (int i = 0; i < durations.getCount(); i++) {
+                if (name.equals(names.get(i))) {
+                    total += durations.getValue(i);
+                    count++;
+                }
+            }
+        } catch (IndexException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        if (count == 0) {
+            return total;
+        }
+
+        averageDuration = total / count;
+        return averageDuration;
     }
 
     /**
@@ -470,6 +543,35 @@ public class BakedGoods {
         return averageTemp;
     }
 
+    public Temperature averageTempByName(String name) {
+
+        Temperature averageTemperature = new Temperature(0, 'F');
+        if (this.getCount() == 0) {
+            return averageTemperature;
+        }
+
+        Temperature total = new Temperature(0, 'F');
+        int count = 0;
+        try {
+            for (int i = 0; i < temps.getCount(); i++) {
+                if (name.equals(names.get(i))) {
+                    total = total.add((Temperature) temps.getValue(i));
+                    total.convertCelsiusAndFahrenheit(total);
+                    count++;
+                }
+            }
+        } catch (IndexException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        if (count == 0) {
+            return total;
+        }
+
+        averageTemperature = total.divide(count);
+        return averageTemperature;
+    }
+
     /**
      *
      *
@@ -497,11 +599,15 @@ public class BakedGoods {
         if (ser.exists()) {
             try (FileInputStream fis = new FileInputStream("bakedGoods.ser");
                     ObjectInputStream input = new ObjectInputStream(fis)) {
-                names = (ArrayList<String>) input.readObject();
-                batches = (IntegerArrayList) input.readObject();
-                temps = (NumericArrayList) input.readObject();
-                durations = (IntegerArrayList) input.readObject();
-                costs = (NumericArrayList) input.readObject();
+                // NOTE: MUST check if there's anything in the file before trying to read, or our Lists stop working correctly for some reason.
+                ArrayList<String> tempNames = (ArrayList<String>) input.readObject();
+                if (tempNames.size() > 0) {
+                    names = tempNames;
+                    batches = (IntegerArrayList) input.readObject();
+                    temps = (NumericArrayList) input.readObject();
+                    durations = (IntegerArrayList) input.readObject();
+                    costs = (NumericArrayList) input.readObject();
+                }
             } catch (Exception ex) {
                 System.out.println("Cannot read from file: \n" + ex.getMessage());
                 success = false;
