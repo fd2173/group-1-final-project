@@ -16,10 +16,12 @@ import numberlist.objectlist.Temperature;
 import numberlist.primitivelist.IntegerArrayList;
 
 /**
+ * This is the business layer of our program
+ *
  * @author Octavia Stappart
  * @author Robert Crocker
  * @author Feny Dai
- * @version 03/16/21
+ * @version 03/18/21
  */
 public class BakedGoods {
 
@@ -30,7 +32,7 @@ public class BakedGoods {
     private NumericArrayList costs;
 
     /**
-     *
+     * Constructor
      */
     public BakedGoods() {
         this.names = new ArrayList<>();
@@ -42,12 +44,13 @@ public class BakedGoods {
     }
 
     /**
+     * Adds a new instance of BakedGoods to the end of BakedGoods collection.
      *
-     * @param name
-     * @param batches
-     * @param temp
-     * @param duration
-     * @param cost
+     * @param name the name of the baked good
+     * @param batches the number of batch(es) of the baked good
+     * @param temp the temperature needed for to make the baked good
+     * @param duration the duration needed for to make the baked good
+     * @param cost the cost of the baked good
      */
     public void addGood(String name, int batches, Temperature temp, int duration, Money cost) {
         names.add(name);
@@ -59,13 +62,15 @@ public class BakedGoods {
     }
 
     /**
+     * Updates information of a BakedGoods instance at an index in the
+     * BakedGoods collection.
      *
-     * @param index
-     * @param name
-     * @param batches
-     * @param temp
-     * @param duration
-     * @param cost
+     * @param index the index of our array lists
+     * @param name the name of the baked good
+     * @param batches the number of batch(es) of the baked good
+     * @param temp the temperature needed for to make the baked good
+     * @param duration the duration needed for to make the baked good
+     * @param cost the cost of the baked good
      * @throws IndexException
      */
     public void updateGood(int index, String name, int batches, Temperature temp, int duration, Money cost) throws IndexException {
@@ -78,8 +83,9 @@ public class BakedGoods {
     }
 
     /**
+     * Deletes a baked good at an index.
      *
-     * @param index
+     * @param index the index of the BakedGoods object
      * @throws IndexException
      */
     public void deleteGood(int index) throws IndexException {
@@ -97,7 +103,7 @@ public class BakedGoods {
      * quantity, temperature, minutes, and cost, respectively: "NAME - ##x ###°
      * , ##min. $##.##"
      *
-     * @param index of the BakedGoods object
+     * @param index the index of the BakedGoods object
      * @return the string representation
      * @throws IndexException
      */
@@ -115,7 +121,7 @@ public class BakedGoods {
      * index as follows: name, batches, temperature value, temperature unit,
      * duration in minutes, cost.
      *
-     * @param index of the BakedGoods object
+     * @param index the index of the BakedGoods object
      * @return the array of String objects
      * @throws IndexException
      */
@@ -131,8 +137,9 @@ public class BakedGoods {
     }
 
     /**
+     * Provides access to the array of baked goods names.
      *
-     * @return
+     * @return the array of baked goods names
      */
     public String[] getNames() {
         String[] arr = new String[this.getCount()];
@@ -143,17 +150,19 @@ public class BakedGoods {
     }
 
     /**
+     * Provides access to the name of a baked good at that index.
      *
-     * @param index
-     * @return
+     * @param index the index of the BakedGoods object
+     * @return the name of the baked good at that index
      */
     public String getName(int index) {
         return names.get(index);
     }
 
     /**
+     * Provides access to the array of the number of batch(es) of baked goods.
      *
-     * @return
+     * @return the array of baked goods batches
      */
     public long[] getBatches() {
         long[] arr = new long[this.getCount()];
@@ -168,15 +177,22 @@ public class BakedGoods {
     }
 
     /**
+     * Provides access to a baked good's batch number at that index.
      *
-     * @param index
-     * @return
+     * @param index the index of the BakedGoods object
+     * @return the number of batch(es) the baked good at that index
      * @throws numberlist.IndexException
      */
     public long getBatch(int index) throws IndexException {
         return batches.getValue(index);
     }
 
+    /**
+     * Calculates the total batches of baked good that have the same name.
+     *
+     * @param name the name of the baked good
+     * @return total batch(es) of baked goods with the same name
+     */
     public long getTotalBatchesByName(String name) {
         long total = 0;
         try {
@@ -192,8 +208,9 @@ public class BakedGoods {
     }
 
     /**
+     * Provides access to the array of temperature of baked goods.
      *
-     * @return
+     * @return the array of baked goods temperatures
      */
     public Temperature[] getTemps() {
         Temperature[] arr = new Temperature[this.getCount()];
@@ -208,9 +225,10 @@ public class BakedGoods {
     }
 
     /**
+     * Provides access to the temperature of a baked good at that index.
      *
-     * @param index
-     * @return
+     * @param index the index of the BakedGoods object
+     * @return the temperature the baked good at that index
      * @throws numberlist.IndexException
      */
     public Temperature getTemp(int index) throws IndexException {
@@ -218,8 +236,9 @@ public class BakedGoods {
     }
 
     /**
+     * Provides access to the array of durations of baked goods.
      *
-     * @return
+     * @return the array of baked goods durations
      */
     public long[] getDurations() {
         long[] arr = new long[this.getCount()];
@@ -234,9 +253,10 @@ public class BakedGoods {
     }
 
     /**
+     * Provides access to the duration of a baked good at that index.
      *
-     * @param index
-     * @return
+     * @param index the index of the BakedGoods object
+     * @return the duration the baked good at that index
      * @throws numberlist.IndexException
      */
     public long getDuration(int index) throws IndexException {
@@ -244,8 +264,9 @@ public class BakedGoods {
     }
 
     /**
+     * Provides access to the array of costs of baked goods.
      *
-     * @return
+     * @return the array of baked goods costs
      */
     public Money[] getCosts() {
         Money[] arr = new Money[this.getCount()];
@@ -260,9 +281,10 @@ public class BakedGoods {
     }
 
     /**
+     * Provides access to the cost of a baked good at that index.
      *
-     * @param index
-     * @return
+     * @param index the index of the BakedGoods object
+     * @return the cost the baked good at that index
      * @throws numberlist.IndexException
      */
     public Money getCost(int index) throws IndexException {
@@ -270,8 +292,10 @@ public class BakedGoods {
     }
 
     /**
+     * Provides access to the count of how many baked goods there are in the
+     * collection.
      *
-     * @return
+     * @return the total of of BakedGoods objects
      */
     public int getCount() {
         int count = names.size();
@@ -279,7 +303,7 @@ public class BakedGoods {
     }
 
     /**
-     *
+     * (Insertion sorting) sorts the baked goods by name A-Z
      */
     public void sortByName() {
         try {
@@ -301,7 +325,7 @@ public class BakedGoods {
     }
 
     /**
-     *
+     * (Insertion sorting) sorts the baked goods by batch(es)
      */
     public void sortByBatches() {
         try {
@@ -322,7 +346,7 @@ public class BakedGoods {
     }
 
     /**
-     *
+     * (Insertion sorting) sorts the baked goods by temperatures
      */
     public void sortByTemps() {
         try {
@@ -343,7 +367,7 @@ public class BakedGoods {
     }
 
     /**
-     *
+     * (Insertion sorting) sorts the baked goods by durations
      */
     public void sortByDuration() {
         try {
@@ -364,7 +388,7 @@ public class BakedGoods {
     }
 
     /**
-     *
+     * (Insertion sorting) sorts the baked goods by costs
      */
     public void sortByCosts() {
         try {
@@ -385,10 +409,11 @@ public class BakedGoods {
     }
 
     /**
+     * Helper method for the sorting algorithm to swap names at index i and j.
      *
-     * @param names
-     * @param i
-     * @param j
+     * @param names the array list of names
+     * @param i at index i
+     * @param j at index j
      */
     private void swapStringArrayList(ArrayList<String> names, int i, int j) {
         String temp = names.get(i);
@@ -397,10 +422,12 @@ public class BakedGoods {
     }
 
     /**
+     * Helper method for the sorting algorithm to swap temps and costs at index
+     * i and j.
      *
-     * @param list
-     * @param i
-     * @param j
+     * @param list the NumericArrayList
+     * @param i at index i
+     * @param j at index j
      * @throws IndexException
      */
     private void swapNumericArrayList(NumericArrayList list, int i, int j) throws IndexException {
@@ -410,10 +437,12 @@ public class BakedGoods {
     }
 
     /**
+     * Helper method for the sorting algorithm to swap batches and durations at
+     * index i and j.
      *
-     * @param list
-     * @param i
-     * @param j
+     * @param list the IntegerArrayList
+     * @param i at index i
+     * @param j at index j
      * @throws IndexException
      */
     private void swapIntegerArrayList(IntegerArrayList list, int i, int j) throws IndexException {
@@ -422,6 +451,11 @@ public class BakedGoods {
         list.set(j, (temp));
     }
 
+    /**
+     * Calculates the total durations of all baked goods.
+     *
+     * @return the total durations of all baked goods
+     */
     public double totalDuration() {
         double total = 0;
         try {
@@ -435,8 +469,9 @@ public class BakedGoods {
     }
 
     /**
+     * Calculates the total costs of all baked goods.
      *
-     * @return
+     * @return the total costs of all baked goods
      */
     public Money totalCost() {
         Money total = new Money(0, (byte) 0);
@@ -451,8 +486,9 @@ public class BakedGoods {
     }
 
     /**
+     * Calculates the average costs of all baked goods.
      *
-     * @return
+     * @return the average costs of all baked goods
      */
     public Money averageCost() {
         Money averageCost = new Money(0, (byte) 0);
@@ -463,6 +499,12 @@ public class BakedGoods {
         return averageCost;
     }
 
+    /**
+     * Calculates the average costs of baked goods that have the same name.
+     *
+     * @param name the name of the baked goods
+     * @return the average costs of baked goods that have the same name
+     */
     public Money averageCostByName(String name) {
         Money averageCost = new Money(0, (byte) 0);
         if (this.getCount() == 0) {
@@ -485,11 +527,16 @@ public class BakedGoods {
         if (count == 0) {
             return total;
         }
-
         averageCost = total.divide(count);
         return averageCost;
     }
 
+    /**
+     * Calculates the average durations of baked goods that have the same name.
+     *
+     * @param name the name of the baked goods
+     * @return the average duration of baked goods that have the same name
+     */
     public double averageDurationByName(String name) {
         double averageDuration = 0;
         if (this.getCount() == 0) {
@@ -507,18 +554,17 @@ public class BakedGoods {
         } catch (IndexException ex) {
             System.out.println(ex.getMessage());
         }
-
         if (count == 0) {
             return total;
         }
-
         averageDuration = total / count;
         return averageDuration;
     }
 
     /**
+     * Calculates the total temperatures of all baked goods
      *
-     * @return
+     * @return the total temperatures of all baked goods
      */
     public Temperature totalTemp() {
         Temperature total = new Temperature();
@@ -535,21 +581,27 @@ public class BakedGoods {
     }
 
     /**
+     * Calculates the average temperatures of all baked goods
      *
-     * @return
+     * @return the average temperatures of all baked goods
      */
     public Temperature averageTemp() {
         Temperature averageTemp = this.totalTemp().divide(temps.getCount());
         return averageTemp;
     }
 
+    /**
+     * Calculates the average temperatures of all baked goods that have the same
+     * name.
+     *
+     * @param name the name of the baked goods
+     * @return the average temperature of baked goods that have the same name
+     */
     public Temperature averageTempByName(String name) {
-
         Temperature averageTemperature = new Temperature(0, 'F');
         if (this.getCount() == 0) {
             return averageTemperature;
         }
-
         Temperature total = new Temperature(0, 'F');
         int count = 0;
         try {
@@ -563,17 +615,15 @@ public class BakedGoods {
         } catch (IndexException ex) {
             System.out.println(ex.getMessage());
         }
-
         if (count == 0) {
             return total;
         }
-
         averageTemperature = total.divide(count);
         return averageTemperature;
     }
 
     /**
-     *
+     * Writes data to the "bakedGoods.ser" file.
      *
      * @return Boolean, success as true.
      */
@@ -593,6 +643,11 @@ public class BakedGoods {
         return success;
     }
 
+    /**
+     * Reads data for the "bakedGoods.ser" file
+     *
+     * @return Boolean, success as true.
+     */
     public boolean readCollection() {
         boolean success = true;
         File ser = new File("bakedGoods.ser");

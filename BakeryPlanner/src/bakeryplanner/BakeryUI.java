@@ -30,10 +30,13 @@ import java.util.Optional;
 import javafx.scene.control.Alert.AlertType;
 
 /**
+ *
+ * This is the presentation layer (GUI) of our program.
+ *
  * @author Octavia Stappart
  * @author Robert Crocker
  * @author Feny Dai
- * @version 03/16/21
+ * @version 03/18/21
  */
 public class BakeryUI extends Application {
 
@@ -79,6 +82,13 @@ public class BakeryUI extends Application {
     private BarChart<Number, String> statsDuration;
     private BarChart<Number, String> statsCost;
 
+    /**
+     * start method required for any JavaFX application. Sets up the Stage,
+     * Scene and all of the component and functionality methods.
+     *
+     * @param stage the primary stage of the application
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         errorSound = Toolkit.getDefaultToolkit();
@@ -94,7 +104,6 @@ public class BakeryUI extends Application {
         VBox leftPane = getLeftPane();
         //Building Functionality
         addFunctionality();
-
         //parent 
         BorderPane root = new BorderPane();
         root.setTop(topPane);
@@ -110,6 +119,11 @@ public class BakeryUI extends Application {
 
     }
 
+    /**
+     * This methods handles setup of the actual functionality of the buttons and
+     * user controls.
+     *
+     */
     public void addFunctionality() {
         //User Input Controls
         btnAdd.setOnAction((ActionEvent e) -> addGood());
@@ -124,9 +138,14 @@ public class BakeryUI extends Application {
         btnStatsDuration.setOnAction((ActionEvent e) -> chartBox.getChildren().set(0, statsDuration));
         btnStatsCost.setOnAction((ActionEvent e) -> chartBox.getChildren().set(0, statsCost));
         btnGenStats.setOnAction((ActionEvent e) -> chartBox.getChildren().set(0, genStats));
-
     }
 
+    /**
+     * This method sets up the Title of the Application and builds a flowPane
+     * Object to be added to the root BorderPane.
+     *
+     * @return a FlowPane containing the Title of the Application.
+     */
     public FlowPane getTopPane() {
         FlowPane topPane = new FlowPane();
         topPane.setPadding(new Insets(10, 10, 10, 10));
@@ -142,6 +161,12 @@ public class BakeryUI extends Application {
         return topPane;
     }
 
+    /**
+     * This method sets up the User Controls for adding, modifying, and deleting
+     * a Job and sets them into a VBox to be added to the root BorderPane.
+     *
+     * @return a VBox containing the User Controls.
+     */
     public VBox getCenterPane() {
         VBox centerPane = new VBox();
         centerPane.setFillWidth(true);
@@ -171,6 +196,13 @@ public class BakeryUI extends Application {
         return centerPane;
     }
 
+    /**
+     * Organizational Method called by getCenterPane to build the Labels and
+     * TextFields for receiving user Input. Uses a gridPane object to align text
+     * and input boxes.
+     *
+     * @return GridPane containing Labels and TextFields for user Input
+     */
     public GridPane makeUserInput() {
         GridPane userInput = new GridPane();
         userInput.setHgap(5);
@@ -231,6 +263,13 @@ public class BakeryUI extends Application {
         return userInput;
     }
 
+    /**
+     * Organizational Method called by getCenterPane to build the Buttons for
+     * adding, modifying, deleting new Baking Jobs, as well as clearing the
+     * TextFields of any unwanted data.
+     *
+     * @return
+     */
     public HBox makeUserControl() {
         HBox userControl = new HBox(10);
         userControl.setAlignment(Pos.CENTER);
@@ -242,6 +281,13 @@ public class BakeryUI extends Application {
         return userControl;
     }
 
+    /**
+     * This method sets up the ScrollPane and VBox that holds the list of Baking
+     * Jobs. Also builds a drop down menu for sorting said list.
+     *
+     * @return VBox containing the VBox for the list, scrollPane, and drop down
+     * menu.
+     */
     public VBox getLeftPane() {
         VBox leftPane = new VBox(10);
         leftPane.setMinWidth(350);
@@ -264,7 +310,6 @@ public class BakeryUI extends Application {
         sortMenu.setAlignment(Pos.CENTER);
         sortMenu.getChildren().addAll(lblSort, sortChoice);
         leftPane.getChildren().add(sortMenu);
-
         //building the list
         VBox listBox = makeListBox();
         listBox.setFillWidth(true);
@@ -276,6 +321,12 @@ public class BakeryUI extends Application {
         return leftPane;
     }
 
+    /**
+     * Organizational method called by getLeftPane that sets up and fills the
+     * list of Baking jobs on start up.
+     *
+     * @return a VBox containing the list of Baking Jobs.
+     */
     public VBox makeListBox() {
         //building the layout
         goodList = new Button[list.getCount()];
@@ -285,6 +336,13 @@ public class BakeryUI extends Application {
         return listBox;
     }
 
+    /**
+     * This Method sets up the a VBox that holds the calculations and charts
+     * made for the Application, which is then added to the root BorderPane.
+     *
+     * @return VBox containing calculations and data charts based on the jobs in
+     * the BakedGoods object.
+     */
     public VBox getRightPane() {
         VBox rightPane = new VBox(10);
         //title
@@ -298,12 +356,18 @@ public class BakeryUI extends Application {
         //Chart Area
         VBox chartArea = getChartArea();
         rightPane.getChildren().add(chartArea);
-        //Button Selection
-
         //return the pane
         return rightPane;
     }
 
+    /**
+     * Organizational method called by getRightPane to build the chart display
+     * as well as the controls for switching between views. The following views
+     * are supported: Total Batch Count, Average Temperature, Average Duration,
+     * Average Cost, General Statistics.
+     *
+     * @return VBox contain chart window and User Controls to switch views.
+     */
     public VBox getChartArea() {
         btnStatsBatch = new Button("Batches");
         btnStatsTemp = new Button("Temperatures");
@@ -331,11 +395,18 @@ public class BakeryUI extends Application {
 
     }
 
+    /**
+     * Organizational method called by getChartArea for building the General
+     * Statistics View. Displays the calculations for Total Jobs, Cost, and
+     * Duration as well as Average Temp and Cost across all items in the list.
+     *
+     * @return GridPane containing the above calculations.
+     */
     public GridPane getGenStats() {
         GridPane genStats = new GridPane();
         genStats.setHgap(5);
         genStats.setVgap(10);
-        Label lblGoods = new Label("Total Batch(es): ");
+        Label lblGoods = new Label("Total Jobs: ");
         lblGoods.setFont(Font.font("sans serif", FontWeight.BOLD, 15));
         Label lblGoodsCalc = new Label(String.valueOf(list.getCount()));
         Label lblDura = new Label("Total Duration (min): ");
@@ -373,6 +444,12 @@ public class BakeryUI extends Application {
         return genStats;
     }
 
+    /**
+     * Functionality Method for taking the information present in the TextFields
+     * and adding it to the BakedGoods list. When done, updates the list display
+     * in the Application.
+     *
+     */
     public void addGood() {
         if (inputValidation() == true) {
             double price = Double.valueOf(costField.getText());
@@ -391,6 +468,14 @@ public class BakeryUI extends Application {
 
     }
 
+    /**
+     * Functionality Method for updating the information of an item in the
+     * BakedGoods list, using the selected button in goodList as the index to
+     * pass to the BakedGoods.updateGood() Method.
+     *
+     * If list is empty, plays an error sound.
+     *
+     */
     public void updateGood() {
         if (inputValidation() == true) {
             try {
@@ -415,6 +500,14 @@ public class BakeryUI extends Application {
         }
     }
 
+    /**
+     * Functionality Method for removing an item from the BakedGoods List. Uses
+     * the index of the selected button to pass to the BakedGoods.deleteGood
+     * method.
+     *
+     * If list is empty, plays an error sound.
+     *
+     */
     public void deleteGood() {
         try {
             if (list.getCount() == 0) {
@@ -429,6 +522,12 @@ public class BakeryUI extends Application {
         }
     }
 
+    /**
+     * Functionality method for sorting the BakedGoods list. Takes the chosen
+     * item from the drop down menu and calls the relevant sorting method in the
+     * BakedGoods class, and then updates the list displayed by the Application.
+     *
+     */
     public void sortGood() {
         String choice = sortChoice.getValue().toString();
         switch (choice) {
@@ -455,7 +554,14 @@ public class BakeryUI extends Application {
         }
     }
 
-    // Shows the data to the user
+    /**
+     * Functionality Method for actually displaying the list to the user. For
+     * each item in the BakedGoods List, creates a button with text in the
+     * format: " "NAME - ##x ###° , ##min. $##.##"
+     *
+     * When called, also updates the data charts displayed to the user.
+     *
+     */
     public void populateList() {
         listBox.getChildren().clear();
         goodList = new Button[list.getCount()];
@@ -487,6 +593,14 @@ public class BakeryUI extends Application {
         }
     }
 
+    /**
+     * Method for populating the TextFields when an item in the Job list is
+     * selected. Assigns the index of the selected button in goodList to a
+     * global variable for use in other methods.
+     *
+     * @param arr a String array containing Job Information
+     * @param index the index of the button selected.
+     */
     public void selectItem(String[] arr, int index) {
         selected = index;
         clearFields();
@@ -495,15 +609,17 @@ public class BakeryUI extends Application {
         tempField.setText(arr[2]);
         if (arr[3].equals("F")) {
             tempGroup.selectToggle(rbF);
-
         } else {
             tempGroup.selectToggle(rbC);
         }
         duraField.setText(arr[4]);
         costField.setText(arr[5]);
-
     }
 
+    /**
+     * Clears all of the textFields of any data.
+     *
+     */
     public void clearFields() {
         nameField.clear();
         batchField.clear();
@@ -512,6 +628,12 @@ public class BakeryUI extends Application {
         costField.clear();
     }
 
+    /**
+     * Method for building the chart to display the information on total Batches
+     * by name of the Item in the list.
+     *
+     * @return the BarChart object.
+     */
     public BarChart getBatchChart() {
         final NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("Total Batch(es) or Item(s) Count");
@@ -530,11 +652,16 @@ public class BakeryUI extends Application {
             series.getData().add(new Data(total, names[i]));
         }
         statsBatch.getData().add(series);
-
         return statsBatch;
 
     }
 
+    /**
+     * Method for building the chart to display the information on Average
+     * Temperature by name of the Item in the list.
+     *
+     * @return the BarChart object.
+     */
     public BarChart getTempChart() {
         final NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("Average Temperature (F)");
@@ -551,14 +678,18 @@ public class BakeryUI extends Application {
         for (int i = 0; i < list.getCount(); i++) {
             Temperature average = list.averageTempByName(names[i]);
             series.getData().add(new Data(average.getValue(), names[i]));
-                    
-            //series.getData().add(new Data(average.getDollars() + (average.getCents() / 100), names[i]));
         }
         statsTemp.getData().add(series);
         return statsTemp;
 
     }
 
+    /**
+     * Method for building the chart to display the information on average
+     * Duration by name of the Item in the list.
+     *
+     * @return the BarChart object.
+     */
     public BarChart getDuraChart() {
         final NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("Average Duration(min)");
@@ -581,6 +712,12 @@ public class BakeryUI extends Application {
 
     }
 
+    /**
+     * Method for building the chart to display the information on average Cost
+     * by name of the Item in the list.
+     *
+     * @return the BarChart object.
+     */
     public BarChart getCostChart() {
         final NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("Average Costs per Batch ($)");
@@ -595,11 +732,9 @@ public class BakeryUI extends Application {
         Money[] costs = list.getCosts();
         Series series = new Series();
         for (int i = 0; i < list.getCount(); i++) {
-            //series.getData().add(new Data(costs[i].getDollars() + (costs[i].getCents() / 100), names[i]));
             Money average = list.averageCostByName(names[i]);
             series.getData().add(new Data(average.getDollars() + (average.getCents() / 100), names[i]));
         }
-        
         statsCost.getData().add(series);
         return statsCost;
 
@@ -624,7 +759,6 @@ public class BakeryUI extends Application {
                 errorSound.beep();
                 alert.showAndWait();
                 isValid = false;
-
                 // Temperature bulletproofing
             } else if (tempField.getText().isEmpty()) {
                 Alert alert = new Alert(AlertType.ERROR, "Please fill all fields completely to add / update.");
@@ -632,7 +766,6 @@ public class BakeryUI extends Application {
                 alert.showAndWait();
                 isValid = false;
             } else if (Double.parseDouble(tempField.getText()) <= 0.0) {
-
                 Alert alert = new Alert(AlertType.ERROR, "Temperature of the oven must be positive.");
                 errorSound.beep();
                 alert.showAndWait();

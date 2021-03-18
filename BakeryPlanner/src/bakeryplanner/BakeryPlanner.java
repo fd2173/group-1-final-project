@@ -6,10 +6,12 @@ import numberlist.objectlist.Money;
 import numberlist.objectlist.Temperature;
 
 /**
+ * This the launcher class
+ *
  * @author Octavia Stappart
  * @author Robert Crocker
  * @author Feny Dai
- * @version 03/16/21
+ * @version 03/18/21
  */
 public class BakeryPlanner {
 
